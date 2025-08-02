@@ -1,8 +1,7 @@
 export const lightTheme = {
 colors: {    
-    background:'#ffffff',
-    onBackground: '#000000',
-    defaultColor:'#F4D03F',
+
+
     blueDark: '#021B33',
     blueLight: '#A9CFE5',
     gray: '#DFDFDF',
@@ -14,25 +13,29 @@ colors: {
     contentsGray: '#DFDFDF',
     calendar: '#DFDFDF',
     
-    nav_bar:'#111827',
+    nav_bar:'#0F1A30FF',
     on_nav_bar:'#F4D03F',
+    icons_main:'#F4D03F',
+    icons_config:'#0F1A30FF',
     background:'#f9fafb',
-    on_background:'#111827',
+    on_background:'#0F1A30FF',
     titles:'#F4D03F',
     text:'#000000',
     on_text:'#f9fafb',
-    button_main:'#2D3748',
-    button_profile:'#F4D03F',
-    button_config:'#F39C12',
-    content_gray:'#DFDFDF85',
+    button_main:'#0F1A30FF',
     calendar_background:'#f9fafb',
     content_yellow:'#F4D03F',
+    content_dark:'#0F1A30FF',
+    content_blue:'#2E86C1',
+    content_gray:'#364256FF',
+    content_light:'#DFDFDF85',
     button_confirm:'#1DB650FF',
     button_cancel:'#E74C3C'
     
+    
 
    /*
-   'barueri_yellow': '#F4D03F',
+   'barueri_yellow': '#111827',
         'barueri_black': '#111827',
         'barueri_dark_gray': '#1f2937',
         'barueri_light_gray': '#f9fafb',

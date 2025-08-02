@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   NavbarText: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 32,
-    color: colors.onBackground
+    color: colors.text
   },
 
   FilterContainer:{
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.transparent,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: colors.onBackground,
-    color: colors.onBackground,
+    borderColor: colors.text,
+    color: colors.text,
     gap: 5,
     margin: 30,
   }
@@ -95,119 +95,119 @@ const styles = StyleSheet.create({
 
     <View style={styles.notificationContainer}>
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.onBackground, color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.text, color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 
       <View style={styles.notificationContent}>
-        <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+        <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+        <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+        <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
           sua escala foi atualizada, verifique se necessário,
           para que não haja problema com horários ou dias trabalhados.
         </Text>
 
         <View style={{ justifyContent: 'center', alignItems: 'flex-end'}}>
-        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground}}>25/04/2025</Text>
+        <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text}}>25/04/2025</Text>
         </View>
       </View>
 

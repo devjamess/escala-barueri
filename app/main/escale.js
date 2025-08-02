@@ -1,11 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { Calendar } from "react-native-calendars";
 import { goBack } from "expo-router/build/global-state/routing";
 import { useRouter } from 'expo-router';
 import { useTheme } from 'styled-components/native';
+import CustomCalendar from '../../components/calendar';
 
-//import ptBR from "../../utils/localeCalendarConfig";
+//import ptBR from "../../utils/local
+// eCalendarConfig";
 
 //LocaleConfig.locales["pt-br"] = ptBR;
 //LocaleConfig.defaultLocale = "pt-br";
@@ -19,22 +20,22 @@ export default function Escale() {
   const calendarItems = [
   {
     label: 'Folgas',
-    color: colors.defaultColor,
+    color: colors.content_yellow,
     value: '5 - 12 - 19 - 26',
   },
   {
     label: 'Feriados',
-    color: colors.defaultColor,
+    color: colors.content_blue,
     value: '3 - 4 - 5',
   },
   {
     label: 'Trabalho',
-    color: colors.defaultColor,
+    color: colors.content_gray,
     value: '8h - 18h',
   },
   {
     label: 'Jornada',
-    color: colors.defaultColor,
+    color: colors.content_gray,
     value: '8 - 22',
   },
 ];
@@ -53,9 +54,9 @@ export default function Escale() {
       alignItems: 'center'
     },
     NavbarText: {
-      fontFamily: 'Montserrat-SemiBold',
+      fontFamily: 'Montserrat-Bold',
       fontSize: 32,
-      color: colors.onBackground
+      color: colors.on_nav_bar
     },
     CalendarDetails: {
       borderTopRightRadius: 10,
@@ -64,21 +65,21 @@ export default function Escale() {
       borderRadius: 10,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: colors.gray
+      backgroundColor: colors.text
     },
     CalendarDetailsTitle: {
       fontFamily: 'Montserrat-Medium',
       fontSize: 18,
       padding: 10,
-      color: colors.onBackground
+      color: colors.text
     },
     CalendarDetailsContent: {
       fontFamily: 'Montserrat-Medium',
       fontSize: 16,
       marginHorizontal: 90,
-      color: colors.onBackground
+      color: colors.text
     },
-    Content: {
+    Content_margin: {
       margin: 15
     },
     DetailsContainer: {
@@ -89,10 +90,12 @@ export default function Escale() {
       gap: 15,
     },
     DetailsContainerTitle: {
-      fontFamily: 'Montserrat-SemiBold',
-      fontSize: 17,
-      paddingHorizontal: 102,
-      paddingVertical: 5,
+      fontFamily: 'Montserrat-Bold',
+      fontSize: 20,
+      textAlign: 'center',
+      width: '100%',
+      padding: 10,
+      color: colors.text,
       backgroundColor: colors.contentsGray,
       borderTopLeftRadius: 10,
       borderTopRightRadius: 10
@@ -113,6 +116,15 @@ export default function Escale() {
       // Android Shadow
       elevation: 5,
     },
+    DetailsContentTitle: {
+      fontFamily: 'Montserrat-Bold', 
+      color: colors.text
+    },
+    DetailsContentText: {
+      fontFamily: 'Montserrat-Medium', 
+      color: colors.text
+    },
+
   })
   return (
     <ScrollView style={styles.Container}>
@@ -122,66 +134,38 @@ export default function Escale() {
         <Text style={styles.NavbarText}> Minha Escala</Text>
       </View>
 
-      <View style={styles.Content}>
+      <View style={styles.Content_margin}>
 
-        <Calendar style={{ borderRadius: 20, padding: 20 }}
-          headerStyle={{
-            backgroundColor: colors.calendar,
-            borderRadius: 20,
-          }}
-          theme={{
-            textMonthFontFamily: 'Montserrat-SemiBold',
-            textMonthFontSize: 18,
-            monthTextColor: colors.defaultColor,
-            arrowColor: colors.defaultColor,
-            dayTextColor: colors.onBackground,
-            calendarBackground: colors.calendar,
-            textSectionTitleColor: colors.onBackground,
-            textDayHeaderFontFamily: 'Montserrat-SemiBold',
-            textDayHeaderFontSize: 14,
-            textDayFontFamily: 'Montserrat-SemiBold',
-            todayTextColor: colors.onBackground,
-          }}
-          markingType="multi-dot"
-          markedDates={{
-            '2025-03-03': {
-              customStyles: {
-                container: {
-                  backgroundColor: 'yellow',
-                  borderRadius: 10,
-                },
-                text: {
-                  color: 'black',
-                  fontWeight: 'bold',
-                },
-              },
-            },
-            '2025-03-04': {
-              customStyles: {
-                container: {
-                  backgroundColor: 'yellow',
-                  borderRadius: 10,
-                },
-                text: {
-                  color: 'black',
-                  fontWeight: 'bold',
-                },
-              },
-            },
-            '2025-03-05': {
-              customStyles: {
-                container: {
-                  backgroundColor: '#194a5e',
-                  borderRadius: 10,
-                },
-                text: {
-                  color: 'white',
-                },
-              },
-            },
-          }}
-        />
 
+        <CustomCalendar 
+        highlightedDates={{
+            '2025-08-05': {
+              container: { backgroundColor: colors.content_yellow },
+              text: { color: colors.text },
+            },
+            '2025-08-12': {
+              container: { backgroundColor: colors.content_yellow },
+              text: { color: colors.text },
+            },
+            '2025-08-19': {
+              container: { backgroundColor: colors.content_yellow },
+              text: { color: colors.text },
+            },
+            '2025-08-26': {
+              container: { backgroundColor: colors.content_yellow },
+              text: { color: colors.text },
+            },
+
+            '2025-08-03': {
+              container: { backgroundColor: colors.content_blue },
+              text: { color: colors.on_text },
+            },
+            '2025-08-04': {
+              container: { backgroundColor: colors.content_blue },
+              text: { color: colors.on_text },
+            }
+
+        }}/>
 
         <View
   style={{
@@ -200,7 +184,7 @@ export default function Escale() {
         width: '90%',
         padding: 0,
         borderRadius: 10,
-        backgroundColor: colors.contentsWhite,
+        backgroundColor: colors.on_text,
         shadowColor: '#000000',
         shadowOffset: { width: 5, height: 7 },
         shadowOpacity: 0.76,
@@ -228,54 +212,54 @@ export default function Escale() {
         <Text style={styles.DetailsContainerTitle}> Esacala Detalhada</Text>
 
         <View style={styles.DetailsContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> 
+          <Text style={styles.DetailsContentTitle}> 
             Local: </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> 
+          <Text style={styles.DetailsContentText}> 
             Secretaria de Mobilidade Urbana</Text>
         </View>
 
 
         <View style={styles.DetailsContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> 
+          <Text style={styles.DetailsContentTitle}> 
             Equipe: </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> 
+          <Text style={styles.DetailsContentText}> 
             Alpha Norte </Text>
         </View>
 
 
         <View style={styles.DetailsContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> 
+          <Text style={styles.DetailsContentTitle}> 
             Escala de Trabalho: </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> 
+          <Text style={styles.DetailsContentText}> 
             6 X 1 - Escala Semanal</Text>
         </View>
 
         <View style={styles.DetailsContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> 
+          <Text style={styles.DetailsContentTitle}> 
             Horário de Trabalho: </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> 
+          <Text style={styles.DetailsContentText}> 
             8h ás 18h - 10 horas de trabalho</Text>
         </View>
 
         <View style={styles.DetailsContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> 
+          <Text style={styles.DetailsContentTitle}> 
             Dias de Folga: </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> 
+          <Text style={styles.DetailsContentText}> 
             Quarta-Feira</Text>
         </View>
 
 
         <View style={styles.DetailsContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> 
+          <Text style={styles.DetailsContentTitle}> 
             Feriados: </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> 
+          <Text style={styles.DetailsContentText}> 
             Dias: 3 - 4 - 5 </Text>
         </View>
 
         <View style={styles.DetailsContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> 
+          <Text style={styles.DetailsContentTitle}> 
             Jornada Suplementar: </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> 
+          <Text style={styles.DetailsContentText}> 
             Dias: 8 - 22 </Text>
         </View>
 

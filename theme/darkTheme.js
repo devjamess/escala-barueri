@@ -1,9 +1,9 @@
 export const darkTheme = {
   colors: {
     background:'#171717',
-    onBackground: '#ffffff',
-    defaultColor:'#12577b',
-    onDefaultColor: '#12567B50',
+    text: '#ffffff',
+    on_background:'#111827',
+    onon_background: '#12567B50',
     nav_bar: '#242C2D',
     blueDark: '#021B33',
     blueLight:'#A9CFE5',
@@ -13,7 +13,7 @@ export const darkTheme = {
     yellow: '#FFFF00',
     onYellow: '#FFFFAC50',
     contentsWhite: '#242C2D',
-    contentsGray:  '#12577b',
+    contentsGray:  '#111827',
     calendar: '#242C2D'
   }
 }

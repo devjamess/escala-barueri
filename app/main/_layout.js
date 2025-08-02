@@ -9,7 +9,7 @@ export default function MainLayout() {
     <Stack
       screenOptions={{
         headerStyle: { backgroundColor: colors.background },
-        headerTintColor: colors.defaultColor,
+        headerTintColor: colors.on_background,
         headerBackVisible: false,
       headerTitle: () => (
         <View style={{
@@ -17,25 +17,36 @@ export default function MainLayout() {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          
           height: 100
         }}>
           <View style={{
+            
             justifyContent: "center",
             alignItems: "center",
+            flexDirection: "row",
+           
 
           }}>
+          <View style={{ flex: 1}}>
             <Text style={{
+              textAlign: "center",
               fontFamily: 'Montserrat-regular',
-              color: colors.onBackground
+              color: colors.text
             }}> Secretaria de </Text>
 
             <Text style={{
-              color: colors.defaultColor,
-              fontFamily: 'Montserrat-SemiBold'
+              textAlign: "center",
+              color: colors.on_background,
+              fontFamily: 'Montserrat-Bold'
             }}> MOBILIDADE URBANA</Text>
-          </View>
-          <Image style={{borderColor: colors.onBackground }}source={require('../../assets/images/header.png')}
+        </View>
+          <Image style={{ flex: 1, 
+          height: 35, justifyContent: "center", 
+          alignItems: "center" }} 
+          source={require('../../assets/images/semurb-logo-header.png')}
           />
+          </View>
         </View>
       ),
     }}>

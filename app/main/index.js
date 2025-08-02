@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
   },
   User: {
     margin: 20,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 25,
-    color: colors.defaultColor
+    color: colors.on_background
   },
 
   buttonContainer: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 15,
     borderRadius: 15,
-    backgroundColor: colors.blueLight,
+    backgroundColor: colors.button_main,
     aspectRatio: 1,
   },
   buttonsRight: {
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     borderRadius: 15,
-    backgroundColor: colors.blueDark,
+    backgroundColor: colors.button_main,
 
   },
   buttonConfig: {
@@ -69,33 +69,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     borderRadius: 15,
-    backgroundColor: colors.defaultColor,
+    backgroundColor: colors.button_main,
+  },
+  buttonText:{
+    color: colors.text,
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 17,
+    color: colors.on_text
   },
   notificationContainer: {
-    flex: 1,
     gap: 10,
     margin: 20,
     borderRadius: 10,
-    backgroundColor: colors.background,
+    
     alignItems: 'center',
-    // iOS Shadow
-    shadowColor: '#000000FF',
-    shadowOffset: { width: 5, height: 7 },
-    shadowOpacity: 0.76,
-    shadowRadius: 3.84,
+    justifyContent: 'center',
 
-    // Android Shadow
-    elevation: 10,
+
   },
   notificationContainerTitle: {
-    fontFamily: 'Montserrat-SemiBold',
-    fontSize: 17,
+    fontFamily: 'Montserrat-Bold',
+    fontSize: 20,
     backgroundColor: colors.contentsGray,
-    paddingHorizontal: 85,
-    paddingVertical: 10,
+    width: '100%',
+    textAlign: 'center',
+    padding: 10,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    color: colors.onBackground
+    color: colors.text
     
   },
   notificationContent: {
@@ -133,20 +134,20 @@ const styles = StyleSheet.create({
       <View style={styles.buttonContainer}>
 
         <Pressable style={styles.buttonCalendar} onPress={() => route.push('/main/escale')}>
-          <Feather name='calendar' color={'#000000'} size={100} />
-          <Text style={{ fontFamily: 'Montserrat-Medium', fontSize: 20 }}> Minha Escala </Text>
+          <Feather name='calendar' color={colors.icons_main} size={100} />
+          <Text style={styles.buttonText}> Minha Escala </Text>
         </Pressable>
 
         <View style={styles.buttonsRight}>
 
           <Pressable style={styles.buttonProfile} onPress={() => route.push('/main/profile')}>
-            <Feather name='user' color={colors.on_nav_bar} size={40} />
-            <Text style={{ color: colors.onBackground, fontFamily: 'Montserrat-Medium', fontSize: 15 }}> Perfil </Text>
+            <Feather name='user' color={colors.icons_main} size={40} />
+            <Text style={styles.buttonText}> Perfil </Text>
           </Pressable>
 
           <Pressable style={styles.buttonConfig} onPress={() => route.push('/main/config')}>
-            <FontAwesome name='gear' color={colors.on_nav_bar} size={35} />
-            <Text style={{ color: colors.onBackground, fontFamily: 'Montserrat-Medium', fontSize: 15 }}> Config </Text>
+            <FontAwesome name='gear' color={colors.icons_main} size={35} />
+            <Text style={styles.buttonText}> Config </Text>
           </Pressable>
         </View>
       </View>
@@ -155,28 +156,28 @@ const styles = StyleSheet.create({
         <Text style={styles.notificationContainerTitle}> Notificações Recentes </Text>
 
         <View style={styles.notificationContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-          <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+          <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+          <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
             sua escala foi atualizada, verifique se necessário,
             para que não haja problema com horários ou dias trabalhados.
           </Text>
 
           <View style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-            <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground }}>25/04/2025</Text>
+            <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text }}>25/04/2025</Text>
           </View>
         </View>
 
         <View style={styles.notificationContent}>
-          <Text style={{ fontFamily: 'Montserrat-SemiBold', color: colors.defaultColor }}> Atualização </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.onBackground }}> Olá, Rogério da Silva Oliveira</Text>
-          <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.onBackground }}>
+          <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
+          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, Rogério da Silva Oliveira</Text>
+          <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
             sua escala foi atualizada, verifique se necessário,
             para que não haja problema com horários ou dias trabalhados.
           </Text>
 
           <View style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-            <Text style={{ fontFamily: 'Montserrat-regular', color: colors.onBackground }}>25/04/2025</Text>
+            <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text }}>25/04/2025</Text>
           </View>
         </View>
       </View>

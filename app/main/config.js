@@ -24,9 +24,9 @@ export default function Config() {
       alignItems: 'center'
     },
     NavbarText: {
-      fontFamily: 'Montserrat-SemiBold',
+      fontFamily: 'Montserrat-Bold',
       fontSize: 32,
-      color: colors.onBackground
+      color: colors.on_nav_bar
     },
     OptionsContainer: {
       gap: 20,
@@ -38,16 +38,16 @@ export default function Config() {
       gap: 30
     },
     IconsBorder: {
-      borderColor: colors.defaultColor,
+      borderColor: colors.on_background,
       borderWidth: 2,
       borderRadius: 100,
       padding: 10,
-      backgroundColor: colors.gray,
+      backgroundColor: colors.content_light,
     },
     OptionText: {
-      fontFamily: 'Montserrat-SemiBold',
+      fontFamily: 'Montserrat-Bold',
       fontSize: 20,
-      color: colors.onBackground
+      color: colors.text
     }
   })
 
@@ -63,28 +63,28 @@ export default function Config() {
 
       <View style={styles.OptionsContainer}>
         <View style={styles.OptionsIcon}>
-          <Ionicons name='sunny-sharp' size={50} color={colors.on_nav_bar} style={styles.IconsBorder} />
+          <Ionicons name='sunny-sharp' size={50} color={colors.icons_config} style={styles.IconsBorder} />
           <Text style={styles.OptionText}> Tema Escuro</Text>
           <Switch value={isDarkMode} onValueChange={toggleTheme} />
         </View>
 
         <View style={styles.OptionsIcon}>
-          <MaterialCommunityIcons name="human-handsup" size={50} color={colors.on_nav_bar} style={styles.IconsBorder} />
+          <MaterialCommunityIcons name="human-handsup" size={50} color={colors.icons_config} style={styles.IconsBorder} />
           <Text style={styles.OptionText}> Acessibilade </Text>
         </View>
 
         <View style={styles.OptionsIcon}>
-          <AntDesign name="questioncircle" size={50} color={colors.on_nav_bar} style={styles.IconsBorder} />
+          <AntDesign name="questioncircle" size={50} color={colors.icons_config} style={styles.IconsBorder} />
           <Text style={styles.OptionText}> Sobre </Text>
         </View>
 
         <View style={styles.OptionsIcon}>
-          <Entypo name="info-with-circle" size={50} color={colors.on_nav_bar} style={styles.IconsBorder} />
+          <Entypo name="info-with-circle" size={50} color={colors.icons_config} style={styles.IconsBorder} />
           <Text style={styles.OptionText}> Termos e Condições </Text>
         </View>
 
         <View style={styles.OptionsIcon}>
-          <Ionicons name="lock-closed-sharp" size={50} color={colors.on_nav_bar} style={styles.IconsBorder} />
+          <Ionicons name="lock-closed-sharp" size={50} color={colors.icons_config} style={styles.IconsBorder} />
           <Text style={styles.OptionText}> Política e Privacidade </Text>
         </View>
       </View>

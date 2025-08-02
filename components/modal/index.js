@@ -42,15 +42,15 @@ const styles = StyleSheet.create({
   headerTitle:{
     fontFamily: 'Montserrat-Bold',
     fontSize: 16,
-    color: colors.onBackground,
+    color: colors.text,
   },
   ContentText:{
     fontFamily: 'Montserrat-Regular',
     fontSize: 14,
-    color: colors.onBackground,
+    color: colors.text,
   },
   Button:{
-    backgroundColor: colors.defaultColor,
+    backgroundColor: colors.on_background,
     borderRadius: 10,
     padding: 5,
   }
