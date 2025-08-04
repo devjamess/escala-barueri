@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    backgroundColor: colors.contentsGray,
+    backgroundColor: colors.content_light,
     padding: 10
   },
   FilterText:{
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   notificationContent: {
     margin: 0,
     flex: 1,
-    backgroundColor: colors.contentsWhite,
+    backgroundColor: colors.content_white,
     gap: 10,
     justifyContent: 'center',
     borderRadius: 10,

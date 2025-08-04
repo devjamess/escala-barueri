@@ -96,12 +96,12 @@ export default function Escale() {
       width: '100%',
       padding: 10,
       color: colors.text,
-      backgroundColor: colors.contentsGray,
+      backgroundColor: colors.content_light,
       borderTopLeftRadius: 10,
       borderTopRightRadius: 10
     },
     DetailsContent: {
-      backgroundColor: colors.contentsWhite,
+      backgroundColor: colors.content_white,
       justifyContent: 'center',
       borderRadius: 10,
       //borderRadius: 10,

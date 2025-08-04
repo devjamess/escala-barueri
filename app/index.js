@@ -47,6 +47,7 @@ export default function Login() {
     route.push('/main', { isOpen: true });
   }
 */
+
   const [registration, setRegistration] = useState('');
   const [password, setPassword] = useState('');
 

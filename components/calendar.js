@@ -77,13 +77,15 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     borderRadius: 12,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    elevation: 10,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+  
   },
   navText: {
     fontSize: 18,

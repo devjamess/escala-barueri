@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: '#101a2e7a',
     zIndex: 1000,
     justifyContent: 'center',
     alignItems: 'center',
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     transform: 'translate(-50%, -50%)', 
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.calendar,
+    backgroundColor: colors.background,
     padding: 20,
     gap: 10,
     borderRadius: 10,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   Button:{
-    backgroundColor: colors.on_background,
+    backgroundColor: colors.button_confirm,
     borderRadius: 10,
     padding: 5,
   }

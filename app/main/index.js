@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background
   },
-  Navbar: {
+  Navbar: {  
     padding: 30,
     flexDirection: 'row',
     backgroundColor: colors.nav_bar,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     margin: 20,
-    gap: 20
+    gap: 20,
   },
   buttonCalendar: {
     flex: 1.5,
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: colors.button_main,
     aspectRatio: 1,
+    elevation: 10,
   },
   buttonsRight: {
     flex: 1,
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
     gap: 5,
     borderRadius: 15,
     backgroundColor: colors.button_main,
+    elevation: 10,
 
   },
   buttonConfig: {
@@ -70,12 +72,12 @@ const styles = StyleSheet.create({
     gap: 5,
     borderRadius: 15,
     backgroundColor: colors.button_main,
+    elevation: 10,
   },
   buttonText:{
     color: colors.text,
     fontFamily: 'Montserrat-Medium',
     fontSize: 17,
-    color: colors.on_text
   },
   notificationContainer: {
     gap: 10,
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   notificationContainerTitle: {
     fontFamily: 'Montserrat-Bold',
     fontSize: 20,
-    backgroundColor: colors.contentsGray,
+    backgroundColor: colors.content_light,
     width: '100%',
     textAlign: 'center',
     padding: 10,
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
   notificationContent: {
     margin: 0,
     flex: 1,
-    backgroundColor: colors.contentsWhite,
+    backgroundColor: colors.content_white,
     gap: 10,
     justifyContent: 'center',
     borderRadius: 10,
