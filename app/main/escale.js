@@ -65,7 +65,7 @@ export default function Escale() {
       borderRadius: 10,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: colors.text
+      backgroundColor: colors.background,
     },
     CalendarDetailsTitle: {
       fontFamily: 'Montserrat-Medium',
@@ -184,7 +184,7 @@ export default function Escale() {
         width: '90%',
         padding: 0,
         borderRadius: 10,
-        backgroundColor: colors.on_text,
+        backgroundColor: colors.content_details,
         shadowColor: '#000000',
         shadowOffset: { width: 5, height: 7 },
         shadowOpacity: 0.76,

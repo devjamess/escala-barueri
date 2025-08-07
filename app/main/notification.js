@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   NavbarText: {
     fontFamily: 'Montserrat-Bold',
     fontSize: 32,
-    color: colors.text
+    color: colors.on_nav_bar
   },
 
   FilterContainer:{
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Medium',
     fontSize: 20,
     marginHorizontal: 5,
+    color: colors.text
   },
 
   notificationContainer: {
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
       <Text style={styles.FilterText}>
         Filtros
       </Text>
-      <AntDesign name="down" size={24} color="black" />
+      <AntDesign name="down" size={24} color={colors.text} />
     </View>
 
     <View style={styles.notificationContainer}>

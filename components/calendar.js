@@ -4,7 +4,78 @@ import { format, addMonths, subMonths, startOfMonth, endOfMonth, startOfWeek, en
 import { useTheme } from 'styled-components/native';
 
 const CustomCalendar = ({ highlightedDates = {} }) => {
+    const { colors } = useTheme();
+    const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: colors.calendar_background,
+    elevation: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  
+  },
+  navText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.text,
+  },
+  monthText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.text,
+  },
+  weekRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  weekDay: {
+    width: 32,
+    textAlign: 'center',
+    fontWeight: '600',
+    color: colors.text,
+  },
+  daysContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+  },
+  dayContainer: {
+    width: '14.2%',
+    paddingVertical: 6,
+    alignItems: 'center',
+  },
+  day: {
+    width: 45,
+    height: 30,
+    borderRadius: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
     
+    
+
+  },
+  dayText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.text,
+  },
+  outMonthDay: {
+    opacity: 0,
+  },
+  today: {
+    borderWidth: 3,
+    borderColor: '#0F1A30FF',
+    
+ 
+  }
+});
+
   const [currentDate, setCurrentDate] = useState(new Date());
   const [days, setDays] = useState([]);
 
@@ -73,70 +144,6 @@ const CustomCalendar = ({ highlightedDates = {} }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    borderRadius: 12,
-    backgroundColor: '#fff',
-    elevation: 10,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-  
-  },
-  navText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  monthText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  weekRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 5,
-  },
-  weekDay: {
-    width: 32,
-    textAlign: 'center',
-    fontWeight: '00'
-  },
-  daysContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-  },
-  dayContainer: {
-    width: '14.2%',
-    paddingVertical: 6,
-    alignItems: 'center',
-  },
-  day: {
-    width: 45,
-    height: 30,
-    borderRadius: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    
 
-  },
-  dayText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  outMonthDay: {
-    opacity: 0,
-  },
-  today: {
-    borderWidth: 3,
-    borderColor: '#0F1A30FF',
-    
- 
-  }
-});
 
 export default CustomCalendar;

@@ -1,9 +1,9 @@
-import { Alert, View, SafeAreaView, Platform, ScrollView, Text, Pressable, Image, ImageBackground, TextInput, KeyboardAvoidingView } from 'react-native';
+import { ActivityIndicator ,Alert, View, SafeAreaView, Platform, ScrollView, Text, Pressable, Image, ImageBackground, TextInput, KeyboardAvoidingView } from 'react-native';
 import { Link, useRouter, } from 'expo-router';
 import { useState } from 'react';
 import { useAuth } from '../hook/useAuth'; 
 import {styles} from '../constants/layout-login';
-
+import api from '../constants/api';
 
 
 export default function Login() {
@@ -50,22 +50,44 @@ export default function Login() {
 
   const [registration, setRegistration] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  function handleSignIn() {
+  //async
+   function handleSignIn() {
+    try {
+      setLoading(true);
 
     if (registration === '' || password === '') {
+      setLoading(false);
       Alert.alert('Preencha todos os campos');
       return;
     }
 
     if (!/^\d+$/.test(password) || !/^\d+$/.test(registration)) {
+      setLoading(false);
       Alert.alert('Credenciais inválidas!', 'deve conter apenas números');
       return
     }
+    
+   /* const user = await api.post('/employees/login', {
+      matricula: registration,
+      senha: password,
+    });
+    console.log(user);
+*/
+    
+      route.push('/main', { isOpen: true });
+    
 
-    route.push('/main', { isOpen: true });
+    }
+ catch (error) {
+    setLoading(false);
+    Alert.alert('Erro ao fazer login', 'Verifique suas credenciais e tente novamente.');
+  }
 
   }
+
+
 
 
   return (
@@ -118,7 +140,13 @@ export default function Login() {
 
               <Pressable
                 style={styles.botaoInput} onPress={handleSignIn}>
-                <Text style={styles.textBotaoInput}> ENTRAR </Text>
+                  {
+                    loading ? (<ActivityIndicator  color="#fff" /> ) :
+                    (<Text style={styles.textBotaoInput}> ENTRAR </Text>)
+                    
+                  }
+                
+                
               </Pressable>
 
 
