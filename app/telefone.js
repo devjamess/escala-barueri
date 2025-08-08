@@ -12,7 +12,7 @@ export default function Telefone() {
  <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVErticalOffset={Platform.OS === 'ios' ? 60 : 0}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
       >
         <ScrollView style={{ flex: 1 }}
           contentContainerStyle={{ flexGrow: 1 }}

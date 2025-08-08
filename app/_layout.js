@@ -2,8 +2,12 @@ import { Stack } from "expo-router";
 import { useFonts } from 'expo-font';
 import { ActivityIndicator } from "react-native";
 import { ThemeProvider } from '../theme/Theme';
-//import {AuthProvider} from '../context/authContext';
+import {AuthProvider} from '../context/authContext';
+
+
 export default function Layout() {
+
+
   const [fontLoad] = useFonts({
     'Montserrat-Regular': require('../constants/fonts/Montserrat-Regular.ttf'),
     'Montserrat-Bold': require('../constants/fonts/Montserrat-Bold.ttf'),
@@ -15,7 +19,9 @@ export default function Layout() {
   }
 
 
+
   return (
+    <AuthProvider>
      <ThemeProvider>
       
       <Stack>
@@ -43,10 +49,8 @@ export default function Layout() {
       </Stack>
      
      </ThemeProvider>
-    
 
-
-
+     </AuthProvider>
 
   )
 }

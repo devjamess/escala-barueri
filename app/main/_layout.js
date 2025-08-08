@@ -1,11 +1,15 @@
 import { Stack } from "expo-router"
 import { Image, Text, View } from "react-native"
 import { useTheme } from 'styled-components/native'
-
+import useAuth from '../../hook/useAuth';
+import Layout from '../_layout';
 
 export default function MainLayout() {
  const { colors } = useTheme();
-  return (
+
+
+
+  return (  
     <Stack
       screenOptions={{
         headerStyle: { backgroundColor: colors.background },
@@ -71,6 +75,5 @@ export default function MainLayout() {
       <Stack.Screen
       name="config"
       />
-    </Stack>
-  )
-}
+    </Stack>  
+  )}
