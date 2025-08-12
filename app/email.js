@@ -67,6 +67,7 @@ export default function EmailLogin() {
 
         <TextInput style={styles.Input} 
         placeholder='E-mail'
+        keyboardType='email-address'
         placeholderTextColor={'#111827'}
         value={email}
         onChangeText={setEmail}

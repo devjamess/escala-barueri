@@ -40,7 +40,7 @@ export default function Telefone() {
         </View>
 
         <TextInput style={styles.Input} 
-        keyboardType='numeric'
+        keyboardType='phone-pad'
         placeholder='Número de telefone'
         placeholderTextColor={'#111827'}>
         </TextInput>

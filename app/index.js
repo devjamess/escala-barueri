@@ -77,7 +77,7 @@ export default function Login() {
               <TextInput style={styles.Input}
                 placeholder='Senha'
                 placeholderTextColor={'#111827'}
-                keyboardType='numeric'
+                keyboardType='default'
                 secureTextEntry
                 value={senha}
                 onChangeText={setSenha}
