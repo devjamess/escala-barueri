@@ -3,83 +3,12 @@ import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { useRouter } from 'expo-router';
 import {useTheme} from 'styled-components/native';
 import { goBack } from "expo-router/build/global-state/routing";
-
+import {main_styles} from '../../hook/useStyleMain'
 
 export default function Notification() {
   const route = useRouter();
 const { colors } = useTheme();
-const styles = StyleSheet.create({
-  Container: {
-    flex: 1,
-    backgroundColor: colors.background
-  },
-  Navbar: {
-    padding: 20,
-    flexDirection: 'row',
-    backgroundColor: colors.nav_bar,
-    justifyContent: 'flex-start',
-    gap: 50,
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  NavbarText: {
-    fontFamily: 'Montserrat-Bold',
-    fontSize: 32,
-    color: colors.on_nav_bar
-  },
-
-  FilterContainer:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
-    backgroundColor: colors.content_light,
-    padding: 10
-  },
-  FilterText:{
-    fontFamily: 'Montserrat-Medium',
-    fontSize: 20,
-    marginHorizontal: 5,
-    color: colors.text
-  },
-
-  notificationContainer: {
-    flex: 1,
-    gap: 10,
-    margin: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    backgroundColor: colors.background
-   
-  },
-  notificationContent: {
-    margin: 0,
-    flex: 1,
-    backgroundColor: colors.content_white,
-    gap: 10,
-    justifyContent: 'center',
-    borderRadius: 10,
-    padding: 10,
-
-     // iOS Shadow
-     shadowColor: '#000000',
-     shadowOffset: { width: 5, height: 7 },
-     shadowOpacity: 0.76,
-     shadowRadius: 3.84,
- 
-     // Android Shadow
-     elevation: 10,
-  },
-  detalhes:{
-    backgroundColor: colors.transparent,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: colors.text,
-    color: colors.text,
-    gap: 5,
-    margin: 30,
-  }
-})
+const styles = main_styles(colors)
   return (
     <ScrollView style={styles.Container}>
       <View style={styles.Navbar}>

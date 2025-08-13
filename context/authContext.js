@@ -12,9 +12,16 @@ export const AuthProvider = ({ children }) => {
 
 
   const signIn = async (matricula, senha) => {
-
-    
     try {
+       if (!matricula || !senha) {
+        Alert.alert('Preencha todos os campos');
+        return null;
+      }
+
+      if (!/^\d+$/.test(matricula)) {
+        Alert.alert('Matrícula inválida');
+        return null;
+      }
       const { data } = await api.post('/home/login', {
         matricula,
         senha,
@@ -39,18 +46,10 @@ export const AuthProvider = ({ children }) => {
     await AsyncStorage.removeItem('@user');
   };
 
-  const verifyEmail = async (email) => {
+ const verifyEmail = async (email) => {
   try {
     const { data } = await api.post('/home/find-email', { email });
-
-    if (data.exists && data.user) {
-      setUser(data.user);
-      await AsyncStorage.setItem('@user', JSON.stringify(data.user));
-      return data.user;
-    }
-
-    return null;
-
+    return data // só retorna true/false
   } catch (error) {
     console.error('Erro ao verificar e-mail:', error.message);
     return false;

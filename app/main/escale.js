@@ -4,19 +4,12 @@ import { goBack } from "expo-router/build/global-state/routing";
 import { useRouter } from 'expo-router';
 import { useTheme } from 'styled-components/native';
 import CustomCalendar from '../../components/calendar';
-
-//import ptBR from "../../utils/local
-// eCalendarConfig";
-
-//LocaleConfig.locales["pt-br"] = ptBR;
-//LocaleConfig.defaultLocale = "pt-br";
+import {main_styles} from '../../hook/useStyleMain'
 
 export default function Escale() {
   
   const route = useRouter();
-
   const { colors } = useTheme();
-
   const calendarItems = [
   {
     label: 'Folgas',
@@ -39,93 +32,7 @@ export default function Escale() {
     value: '8 - 22',
   },
 ];
-
-  const styles = StyleSheet.create({
-    Container: {
-      flex: 1,
-      backgroundColor: colors.background,
-    },
-    Navbar: {
-      padding: 20,
-      flexDirection: 'row',
-      backgroundColor: colors.nav_bar,
-      justifyContent: 'flex-start',
-      gap: 50,
-      alignItems: 'center'
-    },
-    NavbarText: {
-      fontFamily: 'Montserrat-Bold',
-      fontSize: 32,
-      color: colors.on_nav_bar
-    },
-    CalendarDetails: {
-      borderTopRightRadius: 10,
-      borderBottomRightRadius: 10,
-      flexDirection: 'row-reverse',
-      borderRadius: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.background,
-    },
-    CalendarDetailsTitle: {
-      fontFamily: 'Montserrat-Medium',
-      fontSize: 18,
-      padding: 10,
-      color: colors.text
-    },
-    CalendarDetailsContent: {
-      fontFamily: 'Montserrat-Medium',
-      fontSize: 16,
-      marginHorizontal: 90,
-      color: colors.text
-    },
-    Content_margin: {
-      margin: 15
-    },
-    DetailsContainer: {
-      flex: 1,
-      margin: 20,
-      borderRadius: 10,
-      alignItems: 'center',
-      gap: 15,
-    },
-    DetailsContainerTitle: {
-      fontFamily: 'Montserrat-Bold',
-      fontSize: 20,
-      textAlign: 'center',
-      width: '100%',
-      padding: 10,
-      color: colors.text,
-      backgroundColor: colors.content_light,
-      borderTopLeftRadius: 10,
-      borderTopRightRadius: 10
-    },
-    DetailsContent: {
-      backgroundColor: colors.content_white,
-      justifyContent: 'center',
-      borderRadius: 10,
-      //borderRadius: 10,
-      padding: 10,
-      width: '100%',
-      // iOS Shadow
-      shadowColor: '#000000',
-      shadowOffset: { width: 5, height: 7 },
-      shadowOpacity: 0.76,
-      shadowRadius: 3.84,
-
-      // Android Shadow
-      elevation: 5,
-    },
-    DetailsContentTitle: {
-      fontFamily: 'Montserrat-Bold', 
-      color: colors.text
-    },
-    DetailsContentText: {
-      fontFamily: 'Montserrat-Medium', 
-      color: colors.text
-    },
-
-  })
+  const styles = main_styles(colors)
   return (
     <ScrollView style={styles.Container}>
       <View style={styles.Navbar}>
@@ -167,12 +74,7 @@ export default function Escale() {
 
         }}/>
 
-        <View
-  style={{
-    marginTop: 30,
-    alignItems: 'center',
-    gap: 10,
-  }}
+        <View style={{marginTop: 30,alignItems: 'center',gap: 10}}
 >
   {calendarItems.map((item, index) => (
     <View

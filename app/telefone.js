@@ -1,9 +1,7 @@
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Image, StyleSheet, ImageBackground, TextInput, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
-import {styles} from '../constants/layout-login';
-
-
+import {styles} from '../hook/useStyleApp';
 
 export default function Telefone() {
   const route = useRouter();

@@ -4,52 +4,14 @@ import { useRouter } from 'expo-router';
 import { useTheme } from 'styled-components/native';
 import { goBack } from "expo-router/build/global-state/routing";
 import { useContext } from "react";
-import {ThemeContext, ThemeType} from '../../theme/Theme'
+import {ThemeContext, ThemeType} from '../../theme/Theme';
+import {main_styles} from '../../hook/useStyleMain';
 
 
 export default function Config() {
   const route = useRouter();
  const { colors } = useTheme();
-  const styles = StyleSheet.create({
-    Container: {
-      flex: 1,
-      backgroundColor: colors.background
-    },
-    Navbar: {
-      padding: 20,
-      flexDirection: 'row',
-      backgroundColor: colors.nav_bar,
-      justifyContent: 'flex-start',
-      gap: 50,
-      alignItems: 'center'
-    },
-    NavbarText: {
-      fontFamily: 'Montserrat-Bold',
-      fontSize: 32,
-      color: colors.on_nav_bar
-    },
-    OptionsContainer: {
-      gap: 20,
-      margin: 20,
-    },
-    OptionsIcon: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 30
-    },
-    IconsBorder: {
-      borderColor: colors.on_background,
-      borderWidth: 2,
-      borderRadius: 100,
-      padding: 10,
-      backgroundColor: colors.content_light,
-    },
-    OptionText: {
-      fontFamily: 'Montserrat-Bold',
-      fontSize: 20,
-      color: colors.text
-    }
-  })
+  const styles = main_styles(colors);
 
   const {toggleTheme, theme} = useContext(ThemeContext)
   const isDarkMode = theme === ThemeType.dark

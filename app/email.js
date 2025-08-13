@@ -3,7 +3,7 @@ import { Link, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../hook/useAuth';
 import { useState } from 'react';
-import {styles} from '../constants/layout-login';
+import {styles} from '../hook/useStyleApp';
 
 
 
@@ -14,21 +14,17 @@ export default function EmailLogin() {
   const { verifyEmail } = useAuth();
 
   const handleVerifyEmail = async () => {
-   
     setLoading(true);
-
     const emailData = await verifyEmail(email);
     setLoading(false);
     
-    
-      if (emailData) {
+      if (emailData.exists = true) {
       Alert.alert('E-mail verificado', 'Você pode continuar para redefinir sua senha.');
-      route.push('/main', {isOpen: true});
+      route.push('/');
     } else{
       Alert.alert('E-mail não encontrado', 'Verifique se o e-mail está correto e tente novamente.');
     }
   }
-
   
   return (
 
