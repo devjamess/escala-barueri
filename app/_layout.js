@@ -23,7 +23,7 @@ export default function Layout() {
   return (
     <AuthProvider>
      <ThemeProvider>
-      
+  
       <Stack>
         <Stack.Screen
           name='index'
@@ -44,6 +44,7 @@ export default function Layout() {
         <Stack.Screen
           name='main'
           options={{ headerShown: false }} />
+
 
 
       </Stack>
