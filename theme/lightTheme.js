@@ -16,6 +16,7 @@ colors: {
     content_blue:'#2E86C1',
     content_gray:'#364256FF',
     content_light:'#cececeff',
+    content_grayLight:'#cececeff',
     content_details:'#f9fafb',
     content_white:'#ffffff',
     button_confirm:'#1DB650FF',

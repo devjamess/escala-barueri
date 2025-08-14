@@ -11,7 +11,6 @@ export default function Login() {
   const [matricula, setMatricula] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
-
   const { signIn } = useAuth();
 
   const handleSignIn = async () => {
@@ -20,7 +19,7 @@ export default function Login() {
     setLoading(false);
 
     if (userData) {
-      route.replace('/main', { isOpen: true });
+      route.replace('/main');
     } else {
       Alert.alert('Erro ao fazer login', 'Verifique suas credenciais e tente novamente.');
     }
@@ -74,7 +73,9 @@ export default function Login() {
             </TextInput>
 
             <Pressable
-              style={styles.botaoInput} onPress={handleSignIn}>
+              style={styles.botaoInput} 
+              onPress={handleSignIn}
+              >
               {
                 loading ? (<ActivityIndicator color="#fff" />) :
                   (<Text style={styles.textBotaoInput}> ENTRAR </Text>)

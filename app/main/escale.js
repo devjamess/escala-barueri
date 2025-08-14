@@ -1,5 +1,5 @@
-import { Ionicons } from "@expo/vector-icons";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { Ionicons, Octicons } from "@expo/vector-icons";
+import { View, Text, ScrollView } from "react-native";
 import { goBack } from "expo-router/build/global-state/routing";
 import { useRouter } from 'expo-router';
 import { useTheme } from 'styled-components/native';
@@ -23,12 +23,12 @@ export default function Escale() {
   },
   {
     label: 'Trabalho',
-    color: colors.content_gray,
+    color: colors.content_grayLight,
     value: '8h - 18h',
   },
   {
     label: 'Jornada',
-    color: colors.content_gray,
+    color: colors.content_grayLight,
     value: '8 - 22',
   },
 ];
@@ -39,6 +39,7 @@ export default function Escale() {
         <Ionicons name="arrow-back" size={30} color={colors.on_nav_bar} 
         onPress={() => route.back(goBack)} />
         <Text style={styles.NavbarText}> Minha Escala</Text>
+        <Octicons name="bell" color={colors.on_nav_bar} size={30} onPress={() => route.push('/main/notification')} />
       </View>
 
       <View style={styles.Content_margin}>

@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
-import { Ionicons, Feather } from '@expo/vector-icons'
+import { View, Text, Pressable, ScrollView } from 'react-native'
+import { Ionicons, Feather, Octicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { goBack } from 'expo-router/build/global-state/routing'
 import { useTheme } from 'styled-components/native';
@@ -13,10 +13,11 @@ export default function Profile() {
 
 
   return (
-    <View style={styles.Container}>
+    <ScrollView style={styles.Container}>
       <View style={styles.Navbar}>
         <Ionicons name='arrow-back' size={30} color={colors.on_nav_bar} onPress={() => route.back(goBack)} />
         <Text style={styles.NavbarText}> Perfil</Text>
+        <Octicons name="bell" color={colors.on_nav_bar} size={30} onPress={() => route.push('/main/notification')} />
       </View>
 
       <View style={styles.Content}>
@@ -43,6 +44,6 @@ export default function Profile() {
         </View>
 
       </View>
-    </View>
+    </ScrollView>
   )
 }

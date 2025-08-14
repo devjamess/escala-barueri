@@ -16,6 +16,7 @@ export const darkTheme = {
     content_blue:'#2E86C1',
     content_gray:'#364256FF',
     content_light:'#0F1A30FF',
+    content_grayLight:'#364256FF',
     content_details:'#0F1A30FF',
     content_white:'#2D3748',
     button_confirm:'#1DB650FF',

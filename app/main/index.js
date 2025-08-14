@@ -1,30 +1,28 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
+import { View, Text, Pressable, ScrollView } from "react-native";
 import PopUp from '../../components/modal'
 import { SimpleLineIcons, Feather, FontAwesome, Octicons } from "@expo/vector-icons";
 import { useRouter } from 'expo-router';
 import { useTheme } from 'styled-components/native';
-import { goBack } from "expo-router/build/global-state/routing";
 import { useAuth } from "../../hook/useAuth";
 import { main_styles } from '../../hook/useStyleMain'
-import React, { useState } from "react";
+
 
 
 
 export default function Home() {
   const route = useRouter();
   const { colors } = useTheme();
+  const styles = main_styles(colors);
   const { user, signOut } = useAuth();
-  const styles = main_styles(colors)
   const handleLogout = () => {
     signOut();
     route.replace('/');
   }
 
-
   return (
     <ScrollView style={styles.Container}>
-
-      <PopUp />
+      <PopUp/>
+     
 
       <View style={styles.Navbar_index}>
           <SimpleLineIcons name="logout" color={colors.on_nav_bar} size={30} onPress={handleLogout} />

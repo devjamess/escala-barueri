@@ -5,7 +5,7 @@ import { useTheme} from 'styled-components/native';
 
 export default function PopUp() {
 const { colors } = useTheme();
-const [isOpen, setIsOpen] = useState(true);
+const [isOpen, setIsOpen] = useState(true)
 
 const styles = StyleSheet.create({
   Container: {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     padding: 5,
   }
 })
-  if (isOpen) {
+  if (isOpen){
   return (
 
     <View style={styles.Container}>
@@ -78,7 +78,5 @@ const styles = StyleSheet.create({
         </View>
       </View>
     </View>
-
-  )
-} return null;
+)} return null;
 }

@@ -9,8 +9,7 @@ export const main_styles = (colors) => StyleSheet.create({
       padding: 20,
       flexDirection: 'row',
       backgroundColor: colors.nav_bar,
-      justifyContent: 'flex-start',
-      gap: 50,
+      justifyContent: 'space-between',
       alignItems: 'center'
     },
     Navbar_index: {
@@ -23,7 +22,7 @@ export const main_styles = (colors) => StyleSheet.create({
     },
     NavbarText: {
       fontFamily: 'Montserrat-Bold',
-      fontSize: 32,
+      fontSize: 28,
       color: colors.on_nav_bar
     },
 

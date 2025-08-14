@@ -1,12 +1,11 @@
-import { View, StyleSheet, Text, Switch } from "react-native";
-import { Ionicons, MaterialCommunityIcons, AntDesign, Entypo } from "@expo/vector-icons";
+import { View, ScrollView, Text, Switch } from "react-native";
+import { Ionicons, MaterialCommunityIcons, AntDesign, Entypo, Octicons } from "@expo/vector-icons";
 import { useRouter } from 'expo-router';
 import { useTheme } from 'styled-components/native';
 import { goBack } from "expo-router/build/global-state/routing";
 import { useContext } from "react";
 import {ThemeContext, ThemeType} from '../../theme/Theme';
 import {main_styles} from '../../hook/useStyleMain';
-
 
 export default function Config() {
   const route = useRouter();
@@ -17,10 +16,11 @@ export default function Config() {
   const isDarkMode = theme === ThemeType.dark
 
   return (
-    <View style={styles.Container}>
+    <ScrollView style={styles.Container}>
       <View style={styles.Navbar}>
         <Ionicons name="arrow-back" size={30} color={colors.on_nav_bar} onPress={() => route.back(goBack)} />
         <Text style={styles.NavbarText}> Configurações </Text>
+        <Octicons name="bell" color={colors.on_nav_bar} size={30} onPress={() => route.push('/main/notification')} />
       </View>
 
       <View style={styles.OptionsContainer}>
@@ -50,7 +50,7 @@ export default function Config() {
           <Text style={styles.OptionText}> Política e Privacidade </Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
