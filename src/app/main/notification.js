@@ -14,7 +14,7 @@ const styles = main_styles(colors)
       <View style={styles.Navbar}>
         <Ionicons name='arrow-back' size={30} color={colors.on_nav_bar} onPress={() => route.back(goBack)} />
         <Text style={styles.NavbarText}>Notificações</Text>
-        <Ionicons name='home-sharp' size={30} color={colors.on_nav_bar} onPress={()=> route.replace('/main')}/>
+        <Ionicons name='home-sharp' size={30} color={colors.on_nav_bar} onPress={()=> route.push('/main')}/>
       </View>
 
     <View style={styles.FilterContainer}>

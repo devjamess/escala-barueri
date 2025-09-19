@@ -130,7 +130,7 @@ export const main_styles = (colors) => StyleSheet.create({
     },
     CalendarDetailsContent: {
       fontFamily: 'Montserrat-Medium',
-      fontSize: 16,
+      fontSize: 20,
       marginHorizontal: 90,
       color: colors.text
     },
@@ -171,10 +171,12 @@ export const main_styles = (colors) => StyleSheet.create({
     },
     DetailsContentTitle: {
       fontFamily: 'Montserrat-Bold', 
+      fontSize: 18,
       color: colors.text
     },
     DetailsContentText: {
       fontFamily: 'Montserrat-Medium', 
+      fontSize: 18,
       color: colors.text
     },
 
@@ -257,7 +259,7 @@ export const main_styles = (colors) => StyleSheet.create({
     alignItems: 'center',
   },
   Circle: {
-    padding: 40,
+    padding: 20,
     borderWidth: 3,
     borderColor: colors.on_background,
     borderRadius: 150,
@@ -266,12 +268,56 @@ export const main_styles = (colors) => StyleSheet.create({
     alignItems: 'center'
   },
   UserContainer:{
-      marginTop: 20,
+    backgroundColor: colors.content_white,
+    justifyContent: 'center',
+      alignItems: 'start',
+      width: '80%',
+      gap: 30,
+      margin: 20,
       padding: 20,
-      borderWidth: 1,
-      borderRadius: 10,
-      justifyContent: 'center',
-      alignItems: 'center'
+      borderRadius: 15,
+     // iOS Shadow
+      shadowColor: '#000000',
+      shadowOffset: { width: 5, height: 7 },
+      shadowOpacity: 0.76,
+      shadowRadius: 3.84,
+      // Android Shadow
+      
+      elevation: 10,
+  },
+  UserInfo:{
+    fontFamily: 'Montserrat-Bold',
+    fontSize: 20,
+    color: colors.text
+  },
+  UserInfoAuth:{
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 18,
+    color: colors.text
   },
 
+
+  button_confirm:{ 
+    width: '100%',
+    backgroundColor: colors.button_confirm, 
+    padding: 7, 
+    borderRadius: 10, 
+    marginBottom: 15,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  button_cancel:{ 
+    width: '100%',
+    backgroundColor: colors.button_cancel, 
+    padding: 7, 
+    borderRadius: 10, 
+    marginBottom: 15,
+    justifyContent: 'center',
+    alignItems: 'center' 
+  },
+  button_text:{
+    fontFamily: 'Montserrat-Bold',
+    color: 'white',
+    fontSize: 16,
+  }
 });

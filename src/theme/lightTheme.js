@@ -4,7 +4,7 @@ colors: {
     on_nav_bar:'#F4D03F',
     icons_main:'#F4D03F',
     icons_config:'#0F1A30FF',
-    background:'#f9fafb',
+    background:'#f3f3f3',
     on_background:'#0F1A30FF',
     titles:'#F4D03F',
     text:'#000000',

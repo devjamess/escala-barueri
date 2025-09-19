@@ -14,9 +14,10 @@ export default function Home() {
   const { colors } = useTheme();
   const styles = main_styles(colors);
   const { user, signOut } = useAuth();
+  console.log(user)
   const handleLogout = () => {
     signOut();
-    route.replace('/');
+    route.push('/');
   }
 
   return (
@@ -29,7 +30,7 @@ export default function Home() {
           <Octicons name="bell" color={colors.on_nav_bar} size={30} onPress={() => route.push('/main/notification')} />      
       </View>
 
-      <Text style={styles.User}>Olá, {user?.nome}!</Text>
+      <Text style={styles.User}>Olá, {user?.funcionario.nome}!</Text>
 
       <View style={styles.buttonContainer}>
 
@@ -57,7 +58,7 @@ export default function Home() {
 
         <View style={styles.notificationContent_index}>
           <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá,{user?.nome}</Text>
+          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá,{user?.funcionario.nome}</Text>
           <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
             sua escala foi atualizada, verifique se necessário,
             para que não haja problema com horários ou dias trabalhados.
@@ -70,7 +71,7 @@ export default function Home() {
 
         <View style={styles.notificationContent_index}>
           <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, {user?.nome}</Text>
+          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, {user?.funcionario.nome}</Text>
           <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
             sua escala foi atualizada, verifique se necessário,
             para que não haja problema com horários ou dias trabalhados.

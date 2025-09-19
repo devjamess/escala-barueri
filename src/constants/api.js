@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({ 
-    baseURL: 'https://backend-test-54i9.onrender.com',
+    baseURL: 'https://backend-escala-barueri-semurb.vercel.app',
     timeout: 10000,
 });
 

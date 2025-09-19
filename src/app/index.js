@@ -8,18 +8,18 @@ import { styles } from '../hook/useStyleApp';
 
 export default function Login() {
   const route = useRouter();
-  const [matricula, setMatricula] = useState('');
+  const [matricula_funcionario, setMatricula] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
 
   const handleSignIn = async () => {
     setLoading(true);
-    const userData = await signIn(matricula, senha);
+    const userData = await signIn(matricula_funcionario, senha);
     setLoading(false);
 
     if (userData) {
-      route.replace('/main');
+      route.push('/main');
     } else {
       Alert.alert('Erro ao fazer login', 'Verifique suas credenciais e tente novamente.');
     }
@@ -57,7 +57,7 @@ export default function Login() {
               placeholder='Número de Matrícula'
               placeholderTextColor={'#111827'}
               keyboardType='numeric'
-              value={matricula}
+              value={matricula_funcionario}
               onChangeText={setMatricula}
             >
             </TextInput>

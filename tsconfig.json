@@ -9,5 +9,5 @@
       "~/*": ["*"]
     }
   },
-  "include": ["**/*.ts", ".expo/types/**/*.ts", "expo-env.d.ts", "app/_layout.js", "app/main/index.js", "app/main/_layout.js", "app/main/(tabs)/two.js", "app/main/(tabs)/index.js", "app/main/(tabs)/_layout.js", "constants/light.js"]
+  "include": ["**/*.ts", ".expo/types/**/*.ts", "expo-env.d.ts", "src/app/_layout.js", "src/app/main/index.js", "src/app/main/_layout.js", "src/app/main/(tabs)/two.js", "src/app/main/(tabs)/index.js", "src/app/main/(tabs)/_layout.js", "src/constants/light.js"]
 }

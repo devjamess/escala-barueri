@@ -5,10 +5,32 @@ import { useRouter } from 'expo-router';
 import { useTheme } from 'styled-components/native';
 import CustomCalendar from '../../components/calendar';
 import {main_styles} from '../../hook/useStyleMain'
+import {useAuth} from '../../hook/useAuth'
 
 export default function Escale() {
   
   const route = useRouter();
+
+  const {user} = useAuth()
+  const scale = user?.escala.tipo_escala
+  const team = user?.equipe.nome_equipe || 'Desconhecido'
+  const region = user?.regiao.nome_regiao || 'Desconhecido'
+  const horarios = () => {
+    const horario = scale
+
+    if(!horario) return "Horario não definido"
+    
+    switch(horario){
+      case "12x24":
+      return "8h ás 20h - 12 horas de trabalho";
+      case "5x2":
+      return "6h ás 14h - 8 horas de trabalho";
+      case "6x1":
+      return "9h ás 15h - 6 horas de trabalho";
+    }
+  }
+
+
   const { colors } = useTheme();
   const calendarItems = [
   {
@@ -24,7 +46,7 @@ export default function Escale() {
   {
     label: 'Trabalho',
     color: colors.content_grayLight,
-    value: '8h - 18h',
+    value: horarios(),
   },
   {
     label: 'Jornada',
@@ -126,7 +148,14 @@ export default function Escale() {
           <Text style={styles.DetailsContentTitle}> 
             Equipe: </Text>
           <Text style={styles.DetailsContentText}> 
-            Alpha Norte </Text>
+            {team} </Text>
+        </View>
+
+         <View style={styles.DetailsContent}>
+          <Text style={styles.DetailsContentTitle}> 
+            Região: </Text>
+          <Text style={styles.DetailsContentText}> 
+            {region} </Text>
         </View>
 
 
@@ -134,14 +163,14 @@ export default function Escale() {
           <Text style={styles.DetailsContentTitle}> 
             Escala de Trabalho: </Text>
           <Text style={styles.DetailsContentText}> 
-            6 X 1 - Escala Semanal</Text>
+            {scale} - Escala Semanal</Text>
         </View>
 
         <View style={styles.DetailsContent}>
           <Text style={styles.DetailsContentTitle}> 
             Horário de Trabalho: </Text>
           <Text style={styles.DetailsContentText}> 
-            8h ás 18h - 10 horas de trabalho</Text>
+            {horarios()}</Text>
         </View>
 
         <View style={styles.DetailsContent}>

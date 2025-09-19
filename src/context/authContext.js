@@ -7,23 +7,26 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [scales, setScales] = useState([])
+  const [regions, setRegions] = useState([])
+  const [teams, setTeams] = useState([])
 
-  
 
 
-  const signIn = async (matricula, senha) => {
+
+  const signIn = async (matricula_funcionario, senha) => {
     try {
-       if (!matricula || !senha) {
+       if (!matricula_funcionario || !senha) {
         Alert.alert('Preencha todos os campos');
         return null;
       }
 
-      if (!/^\d+$/.test(matricula)) {
+      if (!/^\d+$/.test(matricula_funcionario)) {
         Alert.alert('Matrícula inválida');
         return null;
       }
-      const { data } = await api.post('/home/login', {
-        matricula,
+      const { data } = await api.post('/loginFuncionario', {
+        matricula_funcionario,
         senha,
       });
 
@@ -46,7 +49,7 @@ export const AuthProvider = ({ children }) => {
     await AsyncStorage.removeItem('@user');
   };
 
- const verifyEmail = async (email) => {
+ /*const verifyEmail = async (email) => {
   try {
     const { data } = await api.post('/home/find-email', { email });
     return data // só retorna true/false
@@ -62,7 +65,36 @@ export const AuthProvider = ({ children }) => {
     console.warn('resetPassword ainda não implementado no back-end.');
     return null;
   };
-
+*/
+/*
+const fscales = async() => {
+  try{
+    const {data} = await api.get('/escalas')
+    setScales(data || [])
+    return data
+  }catch(error){
+    console.error("Erro ao buscar escalas", error.message)
+  }
+}
+const fregions = async() => {
+  try{
+    const {data} = await api.get('/regiao')
+    setRegions(data || [])
+    return data
+  }catch(error){
+    console.error("Erro ao buscar regioes", error.message)
+  }
+}
+const fteams = async() => {
+  try{
+    const {data} = await api.get('/equipes')
+    setTeams(data || [])
+    return data
+  }catch(error){
+    console.error("Erro ao buscar equipes", error.message)
+  }
+}
+*/
   useEffect(() => {
     const loadUser = async () => {
       const storedUser = await AsyncStorage.getItem('@user');
@@ -71,10 +103,18 @@ export const AuthProvider = ({ children }) => {
       }
       setLoading(false);
     };
-
+    
+  
     loadUser();
+    
   }, []);
-
+/*
+  useEffect(() =>{
+    fscales();
+    fregions();
+    fteams();
+}, []);
+*/
   if (loading) return null;
 
   return (
@@ -83,8 +123,14 @@ export const AuthProvider = ({ children }) => {
         user,
         signIn,
         signOut,
-        verifyEmail,
-        resetPassword,
+        /*fscales,
+        scales,
+        fregions,
+        regions,
+        fteams,
+        teams
+        //verifyEmail,
+        //resetPassword,*/
       }}
     >
       {children}
