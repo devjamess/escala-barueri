@@ -1,11 +1,24 @@
 import { Pressable, Text, View, StyleSheet } from "react-native";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useTheme} from 'styled-components/native';
-
+import {useAuth} from '../../hook/useAuth'
 
 export default function PopUp() {
+  const {confirm, user} = useAuth()
 const { colors } = useTheme();
-const [isOpen, setIsOpen] = useState(true)
+const [status, setStatus] = useState()
+useEffect(() => {
+    if (user?.confirmacaoEscala?.status) {
+      setStatus(user.confirmacaoEscala.status); 
+    }
+  }, [user]);
+async function handleConfirm(){
+  const confirmpopup = await confirm()
+  if(confirmpopup){
+  setStatus(confirmpopup.status)
+  console.log(status)
+  }
+}
 
 const styles = StyleSheet.create({
   Container: {
@@ -55,7 +68,7 @@ const styles = StyleSheet.create({
     padding: 5,
   }
 })
-  if (isOpen){
+  if (status != 'Confirmado'){
   return (
 
     <View style={styles.Container}>
@@ -72,11 +85,11 @@ const styles = StyleSheet.create({
         </View>
 
         <View> 
-          <Pressable style={styles.Button} onPress={()=> setIsOpen(false) }>
+          <Pressable style={styles.Button} onPress={handleConfirm}>
             <Text style={styles.ButtonText}> Confirmar</Text>
           </Pressable>
         </View>
       </View>
     </View>
-)} return null;
+)} else {return null;}
 }

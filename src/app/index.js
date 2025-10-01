@@ -3,10 +3,18 @@ import { Link, useRouter, } from 'expo-router';
 import { useState } from 'react';
 import { useAuth } from '../hook/useAuth';
 import { styles } from '../hook/useStyleApp';
+import * as Notifications from 'expo-notifications'
 
-
+  // Notifications.setNotificationHandler({
+  //   handleNotification: async () => ({
+  //     shouldShowAlert: true,
+  //     shouldPlaySound: false,
+  //     shouldSetBadge: true,
+  //   })
+  // });
 
 export default function Login() {
+
   const route = useRouter();
   const [matricula_funcionario, setMatricula] = useState('');
   const [senha, setSenha] = useState('');
@@ -15,9 +23,9 @@ export default function Login() {
 
   const handleSignIn = async () => {
     setLoading(true);
-    const userData = await signIn(matricula_funcionario, senha);
+    const userData = await signIn(
+      matricula_funcionario, senha);
     setLoading(false);
-
     if (userData) {
       route.push('/main');
     } else {

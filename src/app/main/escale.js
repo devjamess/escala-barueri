@@ -41,12 +41,12 @@ export default function Escale() {
   {
     label: 'Feriados',
     color: colors.content_blue,
-    value: '3 - 4 - 5',
+    value: ' ',
   },
   {
     label: 'Trabalho',
     color: colors.content_grayLight,
-    value: horarios(),
+    value: '6h - 14h',
   },
   {
     label: 'Jornada',
@@ -69,29 +69,37 @@ export default function Escale() {
 
         <CustomCalendar 
         highlightedDates={{
-            '2025-08-05': {
+            '2025-09-06': {
               container: { backgroundColor: colors.content_yellow },
-              text: { color: colors.text },
-            },
-            '2025-08-12': {
-              container: { backgroundColor: colors.content_yellow },
-              text: { color: colors.text },
-            },
-            '2025-08-19': {
-              container: { backgroundColor: colors.content_yellow },
-              text: { color: colors.text },
-            },
-            '2025-08-26': {
-              container: { backgroundColor: colors.content_yellow },
-              text: { color: colors.text },
-            },
-
-            '2025-08-03': {
-              container: { backgroundColor: colors.content_blue },
               text: { color: colors.on_text },
             },
-            '2025-08-04': {
-              container: { backgroundColor: colors.content_blue },
+            '2025-09-13': {
+              container: { backgroundColor: colors.content_yellow },
+              text: { color: colors.on_text },
+            },
+            '2025-09-20': {
+              container: { backgroundColor: colors.content_yellow },
+              text: { color: colors.on_text },
+            },
+            '2025-09-27': {
+              container: { backgroundColor: colors.content_yellow },
+              text: { color: colors.on_text },
+            },
+
+            '2025-09-07': {
+              container: { backgroundColor: colors.content_yellow},
+              text: { color: colors.on_text },
+            },
+            '2025-09-14': {
+              container: { backgroundColor: colors.content_yellow},
+              text: { color: colors.on_text },
+            },
+            '2025-09-21': {
+              container: { backgroundColor: colors.content_yellow},
+              text: { color: colors.on_text },
+            },
+            '2025-09-28': {
+              container: { backgroundColor: colors.content_yellow},
               text: { color: colors.on_text },
             }
 

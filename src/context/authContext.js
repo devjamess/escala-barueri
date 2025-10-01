@@ -1,18 +1,13 @@
 import { createContext, useState, useEffect } from 'react';
 import api from '../constants/api'; // Seu axios configurado
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from "jwt-decode";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [scales, setScales] = useState([])
-  const [regions, setRegions] = useState([])
-  const [teams, setTeams] = useState([])
-
-
-
 
   const signIn = async (matricula_funcionario, senha) => {
     try {
@@ -28,18 +23,18 @@ export const AuthProvider = ({ children }) => {
       const { data } = await api.post('/loginFuncionario', {
         matricula_funcionario,
         senha,
+        
       });
-
-      
-      if (data) {
-        setUser(data); // armazenar mais informações se precisa
+      if (data && data.token) {
+     
+        setUser(data);
+        await AsyncStorage.setItem('@token', data.token);
         await AsyncStorage.setItem('@user', JSON.stringify(data)); 
         return data;
       }
-
       return null;
     } catch (error) {
-      console.error('Erro ao fazer login:', error.message);
+      console.error('Erro ao fazer login:', error.message); 
       return null;
     }
   };
@@ -49,54 +44,36 @@ export const AuthProvider = ({ children }) => {
     await AsyncStorage.removeItem('@user');
   };
 
- /*const verifyEmail = async (email) => {
-  try {
-    const { data } = await api.post('/home/find-email', { email });
-    return data // só retorna true/false
-  } catch (error) {
-    console.error('Erro ao verificar e-mail:', error.message);
-    return false;
-  }
-};
+    const confirm = async() => {
+      const {data} = await api.put(`/confirmacaoEscala/${user.funcionario.matricula_funcionario}`)
+      try{
+      return data.confirmada
+    } catch(error){
+      console.error('Erro ao confirmar escala', error.response.data.message)
+   }
+    }
 
-
-  const resetPassword = async (email) => {
-    // Como você está usando tabela manual, isso depende de como implementou no back
-    console.warn('resetPassword ainda não implementado no back-end.');
-    return null;
-  };
-*/
-/*
-const fscales = async() => {
-  try{
-    const {data} = await api.get('/escalas')
-    setScales(data || [])
-    return data
-  }catch(error){
-    console.error("Erro ao buscar escalas", error.message)
-  }
-}
-const fregions = async() => {
-  try{
-    const {data} = await api.get('/regiao')
-    setRegions(data || [])
-    return data
-  }catch(error){
-    console.error("Erro ao buscar regioes", error.message)
-  }
-}
-const fteams = async() => {
-  try{
-    const {data} = await api.get('/equipes')
-    setTeams(data || [])
-    return data
-  }catch(error){
-    console.error("Erro ao buscar equipes", error.message)
-  }
-}
-*/
   useEffect(() => {
     const loadUser = async () => {
+      const token = await AsyncStorage.getItem('@token');
+      if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        // Verifica expiração (exp está em segundos)
+        if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+          await signOut();
+          Alert.alert('Sessão expirada', 'Faça login novamente.');
+          setLoading(false);
+          return;
+        }
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      } catch (e) {
+        // Token inválido
+        await signOut();
+        setLoading(false);
+        return;
+      }
+    }
       const storedUser = await AsyncStorage.getItem('@user');
       if (storedUser) {
         setUser(JSON.parse(storedUser));
@@ -108,13 +85,9 @@ const fteams = async() => {
     loadUser();
     
   }, []);
-/*
-  useEffect(() =>{
-    fscales();
-    fregions();
-    fteams();
-}, []);
-*/
+
+
+
   if (loading) return null;
 
   return (
@@ -123,6 +96,7 @@ const fteams = async() => {
         user,
         signIn,
         signOut,
+        confirm,
         /*fscales,
         scales,
         fregions,

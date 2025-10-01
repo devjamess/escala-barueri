@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { format, addMonths, subMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
+import { format, addMonths, subMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, getDaysInMonth } from 'date-fns';
 import { useTheme } from 'styled-components/native';
+import { useAuth } from '../hook/useAuth';
 
 const CustomCalendar = ({ highlightedDates = {} }) => {
     const { colors } = useTheme();
@@ -71,78 +72,156 @@ const CustomCalendar = ({ highlightedDates = {} }) => {
   today: {
     borderWidth: 3,
     borderColor: '#0F1A30FF',
-    
- 
-  }
+    borderRadius: 8
+  },
+   workDay: {
+        backgroundColor: '#4CAF50',
+        borderRadius: 8
+    },
+    workDayText: {
+        color: '#FFFFFF',
+    },
+    restDay: {
+        backgroundColor: '#F44336',
+        borderRadius: 8
+    },
+    restDayText: {
+        color: '#FFFFFF',
+    },
 });
 
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [days, setDays] = useState([]);
+    const {user} = useAuth();
+    const escala = user?.escala;
+    const [currentDate, setCurrentDate] = useState(new Date());
 
-  useEffect(() => {
-    generateCalendar(currentDate);
-  }, [currentDate]);
+    // 🔥 Lógica de 'getWorkDaysMap' adaptada do CalendarProfile.jsx
+    // useMemo é usado para otimização, recalculando o mapa apenas quando a data ou a escala mudam.
+    const workDaysMap = useMemo(() => {
+        if (!escala || !escala.data_inicio) return {};
 
-  const generateCalendar = (date) => {
-    const startMonth = startOfMonth(date);
-    const endMonth = endOfMonth(date);
-    const startDate = startOfWeek(startMonth);
-    const endDate = endOfWeek(endMonth);
+        const workMap = {};
+        // Garante que a data de início seja um objeto Date do JS, sem fuso horário.
+        const startDate = new Date(escala.data_inicio + 'T00:00:00');
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        const daysInMonth = getDaysInMonth(currentDate);
 
-    const tempDays = [];
-    let current = startDate;
+        // Caso 1: Escala em dias (ex: 6x1, 5x2)
+        if (escala.dias_trabalhados && escala.dias_n_trabalhados) {
+            const cycleLength = escala.dias_trabalhados + escala.dias_n_trabalhados;
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                // Diferença em dias
+                const diff = Math.floor((date - startDate) / (1000 * 60 * 60 * 24));
 
-    while (current <= endDate) {
-      tempDays.push(current);
-      current = addDays(current, 1);
-    }
+                if (diff >= 0) {
+                    const cycleDay = diff % cycleLength;
+                    const formattedDate = format(date, 'yyyy-MM-dd');
+                    if (cycleDay < escala.dias_trabalhados) {
+                        workMap[formattedDate] = 'work';
+                    } else {
+                        workMap[formattedDate] = 'rest';
+                    }
+                }
+            }
+        }
+        // Caso 2: Escala em horas (ex: 12x36, 24x48)
+        else if (escala.tipo_escala === "24x48" || escala.tipo_escala === "12x36") {
+            const cycleLength = escala.tipo_escala === "24x48" ? 72 : 48; // Duração do ciclo em horas
+            const workHours = escala.tipo_escala === "24x48" ? 24 : 12;
 
-    setDays(tempDays);
-  };
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                 // Diferença em horas
+                const diffHours = Math.floor((date - startDate) / (1000 * 60 * 60));
 
-  const handlePrev = () => setCurrentDate(subMonths(currentDate, 1));
-  const handleNext = () => setCurrentDate(addMonths(currentDate, 1));
+                if (diffHours >= 0) {
+                    const cycleHour = diffHours % cycleLength;
+                    const formattedDate = format(date, 'yyyy-MM-dd');
+                    if (cycleHour < workHours) {
+                        workMap[formattedDate] = 'work';
+                    } else {
+                        workMap[formattedDate] = 'rest';
+                    }
+                }
+            }
+        }
+        return workMap;
+    }, [currentDate, escala]);
 
-  const renderDay = (day) => {
-    const formatted = format(day, 'yyyy-MM-dd');
-    const highlight = highlightedDates[formatted];
+
+    const handlePrev = () => setCurrentDate(subMonths(currentDate, 1));
+    const handleNext = () => setCurrentDate(addMonths(currentDate, 1));
+
+    const renderDay = (day) => {
+        const formatted = format(day, 'yyyy-MM-dd');
+        // Verifica se o dia é de trabalho ou folga a partir do mapa gerado
+        const dayType = workDaysMap[formatted];
+
+        const dayStyles = [styles.day];
+        const dayTextStyles = [styles.dayText];
+
+        if (!isSameMonth(day, currentDate)) {
+            dayStyles.push(styles.outMonthDay);
+        }
+        if (isSameDay(day, new Date())) {
+            dayStyles.push(styles.today);
+        }
+        // Aplica o estilo de trabalho ou folga
+        if (dayType === 'work') {
+            dayStyles.push(styles.workDay);
+            dayTextStyles.push(styles.workDayText);
+        } else if (dayType === 'rest') {
+            dayStyles.push(styles.restDay);
+            dayTextStyles.push(styles.restDayText);
+        }
+
+        return (
+            <View key={formatted} style={styles.dayContainer}>
+                <TouchableOpacity style={dayStyles}>
+                    <Text style={dayTextStyles}>{format(day, 'd')}</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
+    const renderCalendarDays = () => {
+        const startMonth = startOfMonth(currentDate);
+        const endMonth = endOfMonth(currentDate);
+        const startDate = startOfWeek(startMonth);
+        const endDate = endOfWeek(endMonth);
+
+        const tempDays = [];
+        let current = startDate;
+
+        while (current <= endDate) {
+            tempDays.push(current);
+            current = addDays(current, 1);
+        }
+        return tempDays.map(renderDay);
+    };
 
     return (
-      <View key={formatted} style={styles.dayContainer}>
-        <TouchableOpacity
-          style={[
-            styles.day,
-            !isSameMonth(day, currentDate) && styles.outMonthDay,
-            highlight?.container,
-            isSameDay(day, new Date()) && styles.today
-          ]}
-        >
-          <Text style={[styles.dayText, highlight?.text]}>{format(day, 'd')}</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={handlePrev}><Text style={styles.navText}>{'<'}</Text></TouchableOpacity>
+                <Text style={styles.monthText}>{format(currentDate, 'MMMM yyyy')}</Text>
+                <TouchableOpacity onPress={handleNext}><Text style={styles.navText}>{'>'}</Text></TouchableOpacity>
+            </View>
+
+            <View style={styles.weekRow}>
+                {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((d, i) => (
+                    <Text key={i} style={styles.weekDay}>{d}</Text>
+                ))}
+            </View>
+
+            <View style={styles.daysContainer}>
+                {renderCalendarDays()}
+            </View>
+        </View>
     );
-  };
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handlePrev}><Text style={styles.navText}>{'<'}</Text></TouchableOpacity>
-        <Text style={styles.monthText}>{format(currentDate, 'MMMM yyyy')}</Text>
-        <TouchableOpacity onPress={handleNext}><Text style={styles.navText}>{'>'}</Text></TouchableOpacity>
-      </View>
-
-      <View style={styles.weekRow}>
-        {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((d, i) => (
-          <Text key={i} style={styles.weekDay}>{d}</Text>
-        ))}
-      </View>
-
-      <View style={styles.daysContainer}>
-        {days.map(renderDay)}
-      </View>
-    </View>
-  );
 };
+
 
 
 

@@ -6,14 +6,12 @@ import { useTheme } from 'styled-components/native';
 import { useAuth } from "../../hook/useAuth";
 import { main_styles } from '../../hook/useStyleMain'
 
-
-
-
 export default function Home() {
   const route = useRouter();
   const { colors } = useTheme();
   const styles = main_styles(colors);
   const { user, signOut } = useAuth();
+  const notification = user?.notificacoes
   console.log(user)
   const handleLogout = () => {
     signOut();
@@ -30,7 +28,7 @@ export default function Home() {
           <Octicons name="bell" color={colors.on_nav_bar} size={30} onPress={() => route.push('/main/notification')} />      
       </View>
 
-      <Text style={styles.User}>Olá, {user?.funcionario.nome}!</Text>
+      <Text style={styles.User}>Olá, {user?.funcionario?.nome}!</Text>
 
       <View style={styles.buttonContainer}>
 
@@ -57,28 +55,14 @@ export default function Home() {
         <Text style={styles.notificationContainerTitle}> Notificações Recentes </Text>
 
         <View style={styles.notificationContent_index}>
-          <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá,{user?.funcionario.nome}</Text>
+          <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> {notification?.tipo_notificacao} </Text>
+          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, {user?.funcionario?.nome}</Text>
           <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
-            sua escala foi atualizada, verifique se necessário,
-            para que não haja problema com horários ou dias trabalhados.
+           {notification?.mensagem}
           </Text>
 
           <View style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-            <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text }}>25/04/2025</Text>
-          </View>
-        </View>
-
-        <View style={styles.notificationContent_index}>
-          <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> Atualização </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, {user?.funcionario.nome}</Text>
-          <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
-            sua escala foi atualizada, verifique se necessário,
-            para que não haja problema com horários ou dias trabalhados.
-          </Text>
-
-          <View style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-            <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text }}>25/04/2025</Text>
+            <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text }}>{notification?.enviada_em}</Text>
           </View>
         </View>
       </View>
