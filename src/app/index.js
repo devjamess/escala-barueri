@@ -25,12 +25,13 @@ export default function Login() {
     setLoading(true);
     const userData = await signIn(
       matricula_funcionario, senha);
-    setLoading(false);
-    if (userData) {
+    
+    if (userData?.result) {
       route.push('/main');
     } else {
-      Alert.alert('Erro ao fazer login', 'Verifique suas credenciais e tente novamente.');
+      Alert.alert('Erro ao fazer login', userData.error);
     }
+    setLoading(false);
   };
 
   return (

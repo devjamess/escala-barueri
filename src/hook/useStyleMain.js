@@ -97,7 +97,7 @@ export const main_styles = (colors) => StyleSheet.create({
   },
   notificationContent_index: {
     margin: 0,
-    flex: 1,
+    width: '100%',
     backgroundColor: colors.content_white,
     gap: 10,
     justifyContent: 'center',
@@ -136,6 +136,38 @@ export const main_styles = (colors) => StyleSheet.create({
     },
     Content_margin: {
       margin: 15
+    },
+    CalendarItems:{
+      margin: 20,
+      gap: 10,
+      justfyContent: 'center',
+      alignItems: 'center',
+    },
+    Item:{
+      flexDirection: 'row',
+      elevation: 10,
+    },
+    ItemTitle:{
+      fontFamily: 'Montserrat-Bold',
+      fontSize: 18,
+      backgroundColor: colors.content_yellow,
+      padding: 15,
+      borderTopLeftRadius: 8,
+      borderBottomLeftRadius: 8,
+      width: 120,
+      textAlign : 'center',
+      color: colors.on_text,
+    },
+    ItemContent:{
+      fontFamily: 'Montserrat-Medium',
+      fontSize: 18,
+      backgroundColor: colors.content_details,
+      padding: 15,
+      borderTopRightRadius: 8,
+      borderBottomRightRadius: 8,
+      width: 200,
+      textAlign : 'center',
+      color: colors.text,
     },
     DetailsContainer: {
       flex: 1,
@@ -228,7 +260,7 @@ export const main_styles = (colors) => StyleSheet.create({
   },
   notificationContent: {
     margin: 0,
-    flex: 1,
+    width: '100%',
     backgroundColor: colors.content_white,
     gap: 10,
     justifyContent: 'center',

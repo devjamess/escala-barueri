@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { View, Text, Pressable, ScrollView } from 'react-native'
 import { Ionicons, Feather, Octicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
@@ -9,9 +10,23 @@ export default function Profile() {
   const route = useRouter();
   const { colors } = useTheme();
   const { user } = useAuth();
-  const sector = user?.setor.nome_setor
-  
   const styles = main_styles(colors)
+
+
+  const [infos, setInfos] = useState({})
+  useEffect(()=>{
+    if(user?.funcionario && user?.setor){
+      setInfos({
+        name: user?.funcionario?.nome,
+        registration: user?.funcionario?.matricula_funcionario,
+        telefone: user?.funcionario?.telefone,
+        sector: user?.setor?.nome_setor,
+        email: user?.funcionario?.email,
+        position: user?.funcionario?.cargo,
+      })
+    }
+  },[user])
+
 
 
   return (
@@ -35,29 +50,29 @@ export default function Profile() {
             fontFamily: 'Montserrat-Bold', 
             fontSize: 26,
             color: colors.text }}>
-              {user?.funcionario.nome}
+              {infos.name}
           </Text>
         </View>     
 
         <View>
           <Text style={styles.UserInfo}>N° de Matrícula:</Text>
-          <Text style={styles.UserInfoAuth}>{user?.funcionario.matricula_funcionario}</Text>
+          <Text style={styles.UserInfoAuth}>{infos.registration}</Text>
           <Text style={styles.UserInfo}>Telefone:</Text>
-          <Text style={styles.UserInfoAuth}>{user?.funcionario.telefone}</Text>
+          <Text style={styles.UserInfoAuth}>{infos.telefone}</Text>
           <Text style={styles.UserInfo}>Email:</Text>
-          <Text style={styles.UserInfoAuth}>{user?.funcionario.email}</Text>
+          <Text style={styles.UserInfoAuth}>{infos.email}</Text>
           <Text style={styles.UserInfo}>Setor:</Text>
-          <Text style={styles.UserInfoAuth}>{sector}</Text>
+          <Text style={styles.UserInfoAuth}>{infos.sector}</Text>
           <Text style={styles.UserInfo}>Cargo:</Text>
-          <Text style={styles.UserInfoAuth}>{user?.funcionario.cargo}</Text>
+          <Text style={styles.UserInfoAuth}>{infos.position}</Text>
        </View>
 
         <View>
           <Pressable style={styles.button_confirm}>
-            <Text style={styles.button_text}>ATUALIZAR DADOS</Text>
+            <Text style={styles.button_text} onPress={()=> route.push(`/main/update-profile`)}>ATUALIZAR DADOS</Text>
           </Pressable>
           <Pressable style={styles.button_cancel} >
-            <Text style={styles.button_text}>REDEFINIR SENHA</Text>
+            <Text style={styles.button_text} onPress={()=> route.push(`/main/update-password`)}>REDEFINIR SENHA</Text>
           </Pressable>
           </View>  
         </View>

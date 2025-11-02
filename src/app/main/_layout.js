@@ -2,11 +2,8 @@ import { Stack } from "expo-router"
 import { Image, Text, View } from "react-native"
 import { useTheme } from 'styled-components/native'
 
-
 export default function MainLayout() {
  const { colors } = useTheme();
-
-
 
   return (  
     <Stack
@@ -72,6 +69,14 @@ export default function MainLayout() {
 
       <Stack.Screen
       name="config"
+      />
+
+      <Stack.Screen
+      name="update-profile"
+      />
+
+      <Stack.Screen
+      name="update-password"
       />
     </Stack>  
   )}

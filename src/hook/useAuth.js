@@ -7,6 +7,8 @@ export const useAuth = () => {
     signIn, 
     signOut, 
     confirm,
+    updateProfile,
+    updatePassword,
    /* scales,
     regions,
     teams 
@@ -17,6 +19,8 @@ export const useAuth = () => {
     signIn,
     signOut,
     confirm,
+    updateProfile,
+    updatePassword,
     /*scales,
     regions,
     teams,

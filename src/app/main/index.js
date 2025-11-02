@@ -12,20 +12,31 @@ export default function Home() {
   const styles = main_styles(colors);
   const { user, signOut } = useAuth();
   const notification = user?.notificacoes
-  console.log(user)
-  const handleLogout = () => {
-    signOut();
-    route.push('/');
-  }
+  
+  const formater = new Intl.DateTimeFormat('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false // Garante formato 24h
+  });
+
+  const formatTime = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      return formater.format(date);
+    } catch (error) {
+      console.error('Erro ao formatar data:', error);
+      return '--:--';
+    }
+  };
 
   return (
     <ScrollView style={styles.Container}>
-      <PopUp/>
-     
+      <PopUp />
+
 
       <View style={styles.Navbar_index}>
-          <SimpleLineIcons name="logout" color={colors.on_nav_bar} size={30} onPress={handleLogout} />
-          <Octicons name="bell" color={colors.on_nav_bar} size={30} onPress={() => route.push('/main/notification')} />      
+        <SimpleLineIcons name="logout" color={colors.on_nav_bar} size={30} onPress={()=> signOut()} />
+        <Octicons name="bell" color={colors.on_nav_bar} size={30} onPress={() => route.push('/main/notification')} />
       </View>
 
       <Text style={styles.User}>Olá, {user?.funcionario?.nome}!</Text>
@@ -53,18 +64,19 @@ export default function Home() {
 
       <View style={styles.notificationContainer_index}>
         <Text style={styles.notificationContainerTitle}> Notificações Recentes </Text>
+        {notification?.slice(0,2)?.map((n) => (
+          <View key={n.id_notificacao} style={styles.notificationContent_index}>
+            <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> {n?.tipo_notificacao} </Text>
+            <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, {user?.funcionario?.nome}</Text>
+            <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
+              {n?.mensagem}
+            </Text>
 
-        <View style={styles.notificationContent_index}>
-          <Text style={{ fontFamily: 'Montserrat-Bold', color: colors.on_background }}> {notification?.tipo_notificacao} </Text>
-          <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}> Olá, {user?.funcionario?.nome}</Text>
-          <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
-           {notification?.mensagem}
-          </Text>
-
-          <View style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-            <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text }}>{notification?.enviada_em}</Text>
+            <View style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
+              <Text style={{ fontFamily: 'Montserrat-regular', color: colors.text }}>{formatTime(n?.enviada_em)}</Text>
+            </View>
           </View>
-        </View>
+        ))}
       </View>
 
 
