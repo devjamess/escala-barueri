@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { useFonts } from 'expo-font';
 import { ActivityIndicator } from "react-native";
 import { ThemeProvider } from '../theme/Theme';
-import {AuthProvider} from '../context/authContext';
+import { AuthProvider } from '../context/authContext';
 
 
 export default function Layout() {
@@ -22,36 +22,42 @@ export default function Layout() {
 
   return (
     <AuthProvider>
-     <ThemeProvider>
-  
-      <Stack>
-        <Stack.Screen
-          name='index'
-          options={{ headerShown: false }}
-        />
+      <ThemeProvider>
 
-        <Stack.Screen
-          name='email'
-          options={{ headerShown: false }}
-        />
+        <Stack>
+          <Stack.Screen
+            name='index'
+            options={{ headerShown: false }}
+          />
 
-        <Stack.Screen
-          name='telefone'
-          options={{ headerShown: false }}
-        />
+          <Stack.Screen
+            name='email'
+            options={{ headerShown: false }}
+          />
 
+          <Stack.Screen
+            name='telefone'
+            options={{ headerShown: false }}
+          />
 
-        <Stack.Screen
-          name='main'
-          options={{ headerShown: false }} />
+          <Stack.Screen
+            name='main'
+            options={{ headerShown: false }}
+          />
 
+          <Stack.Screen
+            name='code'
+            options={{headerShown: false}}
+          />
 
+          <Stack.Screen
+            name='forgot-password'
+            options={{headerShown: false}}
+          />
 
-      </Stack>
-     
-     </ThemeProvider>
-
-     </AuthProvider>
+        </Stack>
+      </ThemeProvider>
+    </AuthProvider>
 
   )
 }

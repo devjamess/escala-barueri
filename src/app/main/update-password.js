@@ -58,13 +58,12 @@ export default function UpdatePassword() {
             </Text>
         </View>
         <View>
-          <Text style={styles.UserInfo}>Telefone:</Text>
+          <Text style={styles.UserInfo}>Nova Senha:</Text>
           <TextInput 
           style={[styles.UserInfoAuth, {
             borderBottomWidth: 1, 
             borderColor: colors.text
           }]}
-          placeholder='Nova Senha'
           secureTextEntry={true}
           placeholderTextColor={'#111827'}
           value={form.nova_senha}
@@ -74,13 +73,12 @@ export default function UpdatePassword() {
         </View>
 
         <View>
-          <Text style={styles.UserInfo}>Email:</Text>
+          <Text style={styles.UserInfo}>Confirmar Senha:</Text>
           <TextInput 
           style={[styles.UserInfoAuth, {
             borderBottomWidth: 1, 
             borderColor: colors.text
           }]}
-          placeholder='Confirmar Senha'
           secureTextEntry={true}
           placeholderTextColor={'#111827'}
           value={form.confirmar_nova_senha}

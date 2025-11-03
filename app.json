@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "MinhaEscala",
-    "slug": "MinhaEscala",
+    "name": "Escala Semurb",
+    "slug": "escala-semurb",
     "version": "1.0.0",
     "userInterfaceStyle": "automatic",
-    "scheme": "minhaescala",
+    "scheme": "escala-semurb",
     "web": {
       "bundler": "metro",
       "output": "static",

@@ -13,18 +13,18 @@ export default function EmailLogin() {
   const [loading, setLoading] = useState(false);
   const { verifyEmail } = useAuth();
 
-  const handleVerifyEmail = async () => {
+   const handleVerifyEmail = async () => {
     setLoading(true);
     const emailData = await verifyEmail(email);
-    setLoading(false);
     
-      if (emailData.exists = true) {
-      Alert.alert('E-mail verificado', 'Você pode continuar para redefinir sua senha.');
-      route.push('/');
+      if (emailData.result) {
+      route.push('/code');
     } else{
-      Alert.alert('E-mail não encontrado', 'Verifique se o e-mail está correto e tente novamente.');
+      Alert.alert('Erro na verificação', emailData.error);
     }
+    setLoading(false);
   }
+  
   
   return (
 

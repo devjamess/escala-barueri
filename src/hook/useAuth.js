@@ -9,10 +9,12 @@ export const useAuth = () => {
     confirm,
     updateProfile,
     updatePassword,
+    verifyEmail,
+    holidays,
    /* scales,
     regions,
     teams 
-    resetPassword, verifyEmail*/ } = useContext(AuthContext);
+    resetPassword, */ } = useContext(AuthContext);
 
   return {
     user,
@@ -21,11 +23,13 @@ export const useAuth = () => {
     confirm,
     updateProfile,
     updatePassword,
+    verifyEmail,
+    holidays,
     /*scales,
     regions,
     teams,
     //resetPassword,
-    //verifyEmail,*/
+    //*/
   };
 };
 

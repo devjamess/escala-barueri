@@ -9,6 +9,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [holidays, setHolidays] = useState([])
   const route = useRouter()
 
   const signIn = async (matricula_funcionario, senha) => {
@@ -32,10 +33,11 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
         await AsyncStorage.setItem('@token', data.token);
         await AsyncStorage.setItem('@user', JSON.stringify(data));
+        return { result: data, error: null}
       }
-      return {result: data, error: null};
+       
     } catch (error) {
-      const erro = error.response?.data?.mensagem 
+      const erro = error?.message
       console.error('Erro ao fazer login:', erro);
       return {result: null, error: erro}
     }
@@ -128,6 +130,43 @@ export const AuthProvider = ({ children }) => {
       return { result:null, error:erro, sucess:null}
     }
   }
+
+  const verifyEmail = async(email)=>{
+    try{
+      const {data} = await api.post('/envioVerificacao_email', { email });
+      return {result: data, error: null};
+    }catch(error){
+      const erro = error?.response?.data?.mensagem
+      console.error('Erro ao verificar e-mail: ', erro)
+      return { result:null, error:erro };
+    }
+  }
+
+  const verifyCode = async(email)=>{
+    try{
+      const {data} = await api.post('/verificacaoCodigo', { email });
+      return {result: data, error: null};
+    }catch(error){
+      const erro = error?.response?.data?.message
+      console.error('Erro ao verificar e-mail: ', erro)
+      return { result:null, error:erro };
+    }
+  }
+
+  const updatePasswordByEmail = async(email, payload) =>{}
+
+  const holidaysList = async() =>{
+    try{
+    const {data} = await api.get('/listarFeriados_master')
+    if(data?.feriados){
+    setHolidays(data.feriados)
+    }
+    return data.feriados;
+    }catch(error){
+      const erro = error?.response?.data?.mensagem || error.message
+      console.error('Erro ao obter feriados: ', erro)
+    }
+  }
   useEffect(() => {
     const loadUser = async () => {
       const token = await AsyncStorage.getItem('@token');
@@ -161,6 +200,9 @@ export const AuthProvider = ({ children }) => {
 
   }, []);
 
+  useEffect(()=>{
+    holidaysList()
+  },[user])
 
 
   if (loading) return null;
@@ -173,14 +215,17 @@ export const AuthProvider = ({ children }) => {
         signOut,
         confirm,
         updateProfile,
-        updatePassword
+        updatePassword,
+        verifyEmail,
+        holidaysList,
+        holidays,
         /*fscales,
         scales,
         fregions,
         regions,
         fteams,
         teams
-        //verifyEmail,
+        
         //resetPassword,*/
       }}
     >
