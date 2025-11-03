@@ -55,12 +55,13 @@
         "origin": false
       },
       "eas": {
-        "projectId": "7c009e7e-fb93-4552-a77e-76cca1477caf"
+        "projectId": "847fcbc3-0592-44e5-adc7-664d76c96a12"
       }
     },
     "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/7c009e7e-fb93-4552-a77e-76cca1477caf"
-    }
+    },
+    "owner": "james2"
   }
 }
