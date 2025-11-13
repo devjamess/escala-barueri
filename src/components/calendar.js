@@ -8,7 +8,7 @@ import { ptBR } from 'date-fns/locale';
 import { useTheme } from 'styled-components/native';
 import { useAuth } from '../hook/useAuth';
 
-const CustomCalendar = ({ feriados = [] }) => {
+const CustomCalendar = ({ feriados = [], reminders = [], matricula }) => {
   const { colors } = useTheme();
   const styles = StyleSheet.create({
     container: {
@@ -107,6 +107,18 @@ const CustomCalendar = ({ feriados = [] }) => {
       backgroundColor: '#265ed8ff',
       borderRadius: 8,
     },
+    reminderDayText: {
+      color: '#FFFFFF',
+      fontWeight: 'bold',
+    },
+    reminderWorkDay: {
+      backgroundColor: '#FFA500',
+      borderRadius: 8,
+    },
+    reminderRestDay: {
+      backgroundColor: '#FFA500',
+      borderRadius: 8,
+    },
   });
 
   const { user } = useAuth();
@@ -127,6 +139,24 @@ const CustomCalendar = ({ feriados = [] }) => {
     });
     return map;
   }, [feriados]);
+
+  //mapeias os dias esporádicos
+  const remindersMap = useMemo(() => {
+    const map = {};
+    
+      const reminderlist = reminders?.filter(editday => 
+      editday.matricula_funcionario === matricula
+    );
+
+
+    reminderlist.forEach(reminder => {
+      if (reminder.data_diae) {
+        const dataFormatada = format(new Date(reminder.data_diae + 'T00:00:00'), 'yyyy-MM-dd');
+        map[dataFormatada] = reminder.nome_diae || reminder.descricao_diae || 'Lembrete';
+      }
+    });
+    return map;
+  }, [reminders]);
 
   // Mapeia dias de trabalho/folga
   const workDaysMap = useMemo(() => {
@@ -186,6 +216,7 @@ const CustomCalendar = ({ feriados = [] }) => {
     const dia = day.getDate().toString().padStart(2, '0');
     const chaveFeriado = `${mes}-${dia}`;
     const isFeriado = feriadosMap[chaveFeriado];
+    const isReminder = remindersMap[formatted];
 
     const dayStyles = [styles.day];
     const dayTextStyles = [styles.dayText];
@@ -203,6 +234,15 @@ const CustomCalendar = ({ feriados = [] }) => {
         dayStyles.push(styles.holidayDay);
       }
       dayTextStyles.push(styles.holidayDayText);
+    } else if (isReminder) {
+      if (dayType === 'work') {
+        dayStyles.push(styles.reminderWorkDay);
+      } else if (dayType === 'rest') {
+        dayStyles.push(styles.reminderRestDay);
+      } else {
+        dayStyles.push(styles.reminderDay);
+      }
+      dayTextStyles.push(styles.reminderDayText);
     } else {
       if (dayType === 'work') {
         dayStyles.push(styles.workDay);

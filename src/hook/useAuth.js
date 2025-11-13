@@ -11,6 +11,7 @@ export const useAuth = () => {
     updatePassword,
     verifyEmail,
     holidays,
+    reminders,
    /* scales,
     regions,
     teams 
@@ -25,6 +26,7 @@ export const useAuth = () => {
     updatePassword,
     verifyEmail,
     holidays,
+    reminders,
     /*scales,
     regions,
     teams,

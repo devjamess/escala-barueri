@@ -10,7 +10,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [holidays, setHolidays] = useState([])
+  const [reminders, setReminders] = useState([])
   const route = useRouter()
+
 
   const signIn = async (matricula_funcionario, senha) => {
     try {
@@ -167,6 +169,21 @@ export const AuthProvider = ({ children }) => {
       console.error('Erro ao obter feriados: ', erro)
     }
   }
+
+  const remindersList = async() => {
+    try{
+      const {data} = await api.get('/diasEspecificos')
+      if(data?.diasEspecificos){
+        setReminders(data.diasEspecificos)
+      }
+      return data.diasEspecificos;
+    }catch(error){
+      const erro = error?.response?.data?.mensagem || error.message
+      console.error('Erro ao obter esporadicações: ', erro)
+    }
+  }
+
+
   useEffect(() => {
     const loadUser = async () => {
       const token = await AsyncStorage.getItem('@token');
@@ -202,6 +219,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(()=>{
     holidaysList()
+    remindersList()
   },[user])
 
 
@@ -219,6 +237,8 @@ export const AuthProvider = ({ children }) => {
         verifyEmail,
         holidaysList,
         holidays,
+        remindersList,
+        reminders,
         /*fscales,
         scales,
         fregions,
