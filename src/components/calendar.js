@@ -157,54 +157,94 @@ const CustomCalendar = ({ feriados = [], reminders = [], matricula }) => {
     });
     return map;
   }, [reminders]);
+  const createLocalDate = (dateString) => {
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  };
 
-  // Mapeia dias de trabalho/folga
-  const workDaysMap = useMemo(() => {
-    if (!escala || !escala.data_inicio) return {};
+const workDaysMap = useMemo(() => {
+  if (!escala || !escala.data_inicio) return {};
 
-    const workMap = {};
-    const startDate = new Date(escala.data_inicio + 'T00:00:00');
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const daysInMonth = getDaysInMonth(currentDate);
+  const workMap = {};
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const daysInMonth = getDaysInMonth(currentDate);
 
-    // Caso 1: Escala em dias (ex: 6x1, 5x2)
-    if (escala.dias_trabalhados && escala.dias_n_trabalhados) {
-      const cycleLength = escala.dias_trabalhados + escala.dias_n_trabalhados;
-      for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const diff = Math.floor((date - startDate) / (1000 * 60 * 60 * 24));
-        if (diff >= 0) {
-          const cycleDay = diff % cycleLength;
-          const formattedDate = format(date, 'yyyy-MM-dd');
-          if (cycleDay < escala.dias_trabalhados) {
-            workMap[formattedDate] = 'work';
-          } else {
-            workMap[formattedDate] = 'rest';
-          }
+  const startDate = new Date(escala.data_inicio + "T00:00:00");
+
+  // ---------------------------
+  // CASO 1 — Escala semanal (6x1, 5x2, etc)
+  // ---------------------------
+  if (
+    escala.dias_trabalhados !== undefined &&
+    escala.dias_n_trabalhados !== undefined
+  ) {
+    const cycleLength = escala.dias_trabalhados + escala.dias_n_trabalhados;
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(currentYear, currentMonth, day);
+      const dateKey = format(date, "yyyy-MM-dd");
+
+      const diffDays = Math.floor(
+        (date.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      if (diffDays >= 0) {
+        const cyclePos = diffDays % cycleLength;
+
+        // MESMA LÓGICA DO SISTEMA WEB:
+        // 0..dias_trabalhados-1 → TRABALHA
+        // resto → FOLGA
+        if (cyclePos < escala.dias_trabalhados) {
+          workMap[dateKey] = "work";
+        } else {
+          workMap[dateKey] = "rest";
         }
       }
     }
-    // Caso 2: Escala em horas (ex: 12x36, 24x48)
-    else if (escala.tipo_escala === "24x48" || escala.tipo_escala === "12x36") {
-      const cycleLength = escala.tipo_escala === "24x48" ? 72 : 48;
-      const workHours = escala.tipo_escala === "24x48" ? 24 : 12;
-      for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const diffHours = Math.floor((date - startDate) / (1000 * 60 * 60));
-        if (diffHours >= 0) {
-          const cycleHour = diffHours % cycleLength;
-          const formattedDate = format(date, 'yyyy-MM-dd');
-          if (cycleHour < workHours) {
-            workMap[formattedDate] = 'work';
-          } else {
-            workMap[formattedDate] = 'rest';
-          }
-        }
-      }
-    }
+
     return workMap;
-  }, [currentDate, escala]);
+  }
+
+  // ---------------------------
+  // CASO 2 — Escala 12x36 e 24x48 (WEB não usa horas)
+  // ---------------------------
+  if (escala.tipo_escala === "12x36" || escala.tipo_escala === "24x48") {
+    
+    // No sistema WEB:
+    // 12x36 => TRABALHA 1 DIA / FOLGA 1 DIA
+    // 24x48 => TRABALHA 1 DIA / FOLGA 2 DIAS
+
+    const diasTrabalho = 1;
+    const diasFolga = escala.tipo_escala === "12x36" ? 1 : 2;
+    const cycleLength = diasTrabalho + diasFolga;
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(currentYear, currentMonth, day);
+      const dateKey = format(date, "yyyy-MM-dd");
+
+      const diffDays = Math.floor(
+        (date.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      if (diffDays >= 0) {
+        const cyclePos = diffDays % cycleLength;
+
+        // MESMA LÓGICA DO WEB:
+        // primeiro dia = TRABALHO
+        if (cyclePos < diasTrabalho) {
+          workMap[dateKey] = "work";
+        } else {
+          workMap[dateKey] = "rest";
+        }
+      }
+    }
+
+    return workMap;
+  }
+
+  return workMap;
+}, [currentDate, escala]);
 
   const handlePrev = () => setCurrentDate(subMonths(currentDate, 1));
   const handleNext = () => setCurrentDate(addMonths(currentDate, 1));

@@ -44,47 +44,65 @@ export default function Escale() {
 
 
   const formatDiaFolgaResumH = (escala) => {
-    if (!escala || !escala.tipo_escala) return { diaSemana: 'Não definido', data: null };
-
+    if (!escala || !escala.tipo_escala || !escala.data_inicio) {
+      return { diaSemana: 'Não definido', data: null };
+    }
+  
     const tipo = escala.tipo_escala.toLowerCase();
-    const agora = new Date();
-
-    // parâmetros do ciclo em horas
     let cicloHoras, horasTrabalho;
+  
     if (tipo === '12x36') {
-      horasTrabalho = 12; cicloHoras = 48;
+      horasTrabalho = 12;
+      cicloHoras = 48;
     } else if (tipo === '24x48') {
-      horasTrabalho = 24; cicloHoras = 72;
+      horasTrabalho = 24;
+      cicloHoras = 72;
     } else {
       return { diaSemana: 'Não definido', data: null };
     }
-
-    // data de referência (quando o ciclo começou). Se não existir, assume agora
-    const ref = escala.data_inicio ? new Date(escala.data_inicio + 'T00:00:00') : new Date();
-    const diffMs = agora - ref;
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-
-    // posição atual no ciclo (0 .. cicloHoras-1)
+  
+    const nomesDias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+  
+    const agora = new Date();
+    
+    // Data de início da escala → normalizada ao meio-dia (igual no mobile)
+    const [y, m, d] = escala.data_inicio.split('-').map(Number);
+    const inicio = new Date(y, m - 1, d, 12); // meio-dia
+  
+    // Normalizar "agora" para meio-dia também
+    const agoraNoon = new Date(
+      agora.getFullYear(),
+      agora.getMonth(),
+      agora.getDate(),
+      12
+    );
+  
+    // Diferença em horas
+    const diffMs = agoraNoon - inicio;
+    const diffHours = Math.round(diffMs / (1000 * 60 * 60)); // arredondado para efeito DST
+  
+    // posição dentro do ciclo
     const pos = ((diffHours % cicloHoras) + cicloHoras) % cicloHoras;
-
-    // calculamos quantas horas até o INÍCIO da próxima folga (próximo período de descanso)
+  
     let horasAteProximaFolga;
+  
     if (pos < horasTrabalho) {
-      // estamos em período de trabalho -> folga começa após (horasTrabalho - pos) horas
+      // estamos TRABALHANDO → próxima folga começa quando completar horasTrabalho
       horasAteProximaFolga = horasTrabalho - pos;
     } else {
-      // estamos em folga -> pular folga atual + próximo período de trabalho
+      // estamos em FOLGA → precisamos esperar terminar esta folga + próximo trabalho
       horasAteProximaFolga = (cicloHoras - pos) + horasTrabalho;
     }
-
-    // próxima folga começa daqui a `horasAteProximaFolga` horas
-    const proximaFolga = new Date(agora.getTime() + horasAteProximaFolga * 60 * 60 * 1000);
-
+  
+    // Próxima folga começa daqui a X horas
+    const proximaFolga = new Date(agora.getTime() + horasAteProximaFolga * 3600 * 1000);
+  
     return {
       diaSemana: nomesDias[proximaFolga.getDay()],
       data: proximaFolga
     };
   };
+  
   const formatDiaFolgaResumS = (escala) => {
     // precisa: escala.dias_trabalhados, escala.dias_n_trabalhados, e idealmente escala.data_inicio (início do ciclo)
     if (!escala) return { diaSemana: 'Não definido', data: null };
@@ -346,8 +364,8 @@ export default function Escale() {
 
         <View style={styles.CalendarItems}>
           <View style={styles.Item}>
-            <Text style={[styles.ItemTitle, { backgroundColor: colors.button_cancel }]}>Folgas:</Text>
-            <Text style={styles.ItemContent}>{formatDiasFolga(scale)}</Text>
+            <Text style={[styles.ItemTitle, { backgroundColor: colors.button_cancel }]}>Próx. Folga:</Text>
+            <Text style={styles.ItemContent}>{formatDiaFolgaResum(scale).diaSemana}</Text>
           </View>
 
           <View style={styles.Item}>

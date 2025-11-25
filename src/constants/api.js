@@ -46,7 +46,7 @@ api.interceptors.response.use(
         // Redirecionar para login (você precisará importar navegação)
         // navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
         
-        console.log('Sessão expirada - faça login novamente');
+
         return Promise.reject(error);
       } catch (refreshError) {
         console.error('Erro ao renovar sessão:', refreshError);

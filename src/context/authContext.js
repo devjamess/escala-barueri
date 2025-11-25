@@ -64,8 +64,6 @@ export const AuthProvider = ({ children }) => {
         `/confirmacaoEscala/${user.funcionario.matricula_funcionario}`
       );
 
-      console.log('Resposta confirm:', data);
-      console.log('Confirmada:', data.confirmada);
 
       // Atualizar o user no estado com o novo status
       const updatedUser = {
