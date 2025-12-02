@@ -11,6 +11,7 @@ export default function EmailLogin() {
   const route = useRouter();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [matricula_funcionario, setId] = useState(null);
   const { verifyEmail } = useAuth();
 
    const handleVerifyEmail = async () => {
@@ -18,7 +19,9 @@ export default function EmailLogin() {
     const emailData = await verifyEmail(email);
     
       if (emailData.result) {
-      route.push('/code');
+    console.log("infos",emailData.result);
+    setId(emailData.result.matricula_funcionario);
+    route.push(`/code?matricula_funcionario=${matricula_funcionario}`);
     } else{
       Alert.alert('Erro na verificação', emailData.error);
     }

@@ -142,13 +142,13 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const verifyCode = async(email)=>{
+  const verifyCode = async(matricula_funcionario, codigo)=>{
     try{
-      const {data} = await api.post('/verificacaoCodigo', { email });
+      const {data} = await api.post('/verificacaoCodigo', { matricula_funcionario, codigo });
       return {result: data, error: null};
     }catch(error){
-      const erro = error?.response?.data?.message
-      console.error('Erro ao verificar e-mail: ', erro)
+      const erro = error?.response?.data?.mensagem
+      console.error('Erro ao verificar codigo: ', erro)
       return { result:null, error:erro };
     }
   }
@@ -290,6 +290,7 @@ const getProfileImage = async (matricula) => {
         updateProfile,
         updatePassword,
         verifyEmail,
+        verifyCode,
         holidaysList,
         holidays,
         remindersList,

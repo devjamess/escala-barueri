@@ -1,22 +1,33 @@
 import { Alert, ActivityIndicator, View, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Image, StyleSheet, ImageBackground, TextInput, Pressable } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link, useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../hook/useAuth';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styles } from '../hook/useStyleApp';
+
 
 export default function Code() {
   const route = useRouter();
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
   const { verifyCode } = useAuth();
+  const { matricula_funcionario } = useLocalSearchParams();
+  const [id, setID] = useState(null);
+
+  useEffect(() => {
+    if(!matricula_funcionario){
+      setID(matricula_funcionario)     
+    }
+  },[matricula_funcionario]);
 
   const handleVerifyCode = async () => {
     setLoading(true);
-    if (!code) {
-      Alert.alert('Erro na verificação', 'Por favor, insira o código enviado ao seu email.');
+
+    const codeData = await verifyCode(id, code)
+    if (codeData.result) {
+      route.push(`/forgot-password?id=${id}&code=${code}`);
     } else {
-      route.push('/forgot-password');
+      Alert.alert('Erro na verificação', codeData.error);
     }
     setLoading(false);
   }
