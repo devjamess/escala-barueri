@@ -20,7 +20,8 @@
           "icon": "./src/assets/icon.png",
           "color": "#ffffff"
         }
-      ]
+      ],
+      "expo-build-properties"
     ],
     "experiments": {
       "typedRoutes": true,

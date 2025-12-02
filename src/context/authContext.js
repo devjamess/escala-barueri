@@ -181,6 +181,62 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const uploadProfileImage = async (matricula, imageUri) => {
+    try {
+      // Criar FormData
+      const formData = new FormData();
+      
+      const filename = imageUri.split('/').pop();
+      const match = /\.(\w+)$/.exec(filename);
+      const type = match ? `image/${match[1]}` : `image/jpeg`;
+  
+      formData.append('file', {
+        uri: imageUri,
+        name: filename,
+        type: type,
+      });
+  
+      // Fazer o upload
+      const { data } = await api.put(
+        `/uploadImagemPerfil/${matricula}`, 
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+  
+      return { result: data, error: null };
+    } catch (error) {
+      const erro = error?.response?.data?.error || error.message;
+      console.error('Erro ao fazer upload da imagem:', erro);
+      return { result: null, error: erro };
+    }
+  };
+  
+
+const getProfileImage = async (matricula) => {
+  try {
+    const response = await api.get(`/imagemPerfil/${matricula}`, {
+      responseType: 'blob', // Para receber a imagem como blob
+    });
+
+    // Converter blob para base64 para usar no React Native
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve({ result: reader.result, error: null });
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(response.data);
+    });
+  } catch (error) {
+    const erro = error?.response?.data?.mensagem || error.message;
+    console.error('Erro ao buscar imagem de perfil:', erro);
+    return { result: null, error: erro };
+  }
+};
 
   useEffect(() => {
     const loadUser = async () => {
@@ -218,6 +274,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(()=>{
     holidaysList()
     remindersList()
+    getProfileImage()
   },[user])
 
 
@@ -237,6 +294,8 @@ export const AuthProvider = ({ children }) => {
         holidays,
         remindersList,
         reminders,
+        uploadProfileImage,
+        getProfileImage,
         /*fscales,
         scales,
         fregions,
