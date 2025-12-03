@@ -14,6 +14,8 @@ export const useAuth = () => {
     holidays,
     reminders,
     uploadProfileImage,
+    getProfileImage,
+    changeProfileImage,
    /* scales,
     regions,
     teams 
@@ -31,6 +33,8 @@ export const useAuth = () => {
     holidays,
     reminders,
     uploadProfileImage,
+    getProfileImage,
+    changeProfileImage,
     /*scales,
     regions,
     teams,

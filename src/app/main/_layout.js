@@ -14,10 +14,12 @@ export default function MainLayout() {
       headerTitle: () => (
         <View style={{
           flex: 1,
+          margin: 0,
+          padding: 0,
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
-          height: 100,
+          height: 50,
         }}>
 
           <View style={{
@@ -41,8 +43,8 @@ export default function MainLayout() {
             }}> MOBILIDADE URBANA</Text>
         </View>
           <Image style={{ flex: 1, 
-          height: 30, justifyContent: "center", 
-          alignItems: "center", }} 
+          height: 35, justifyContent: "center", 
+          alignItems: "center", marginLeft: -20 }} 
           source={require('../../assets/images/semurb-logo-header.png')}
           />
           </View>

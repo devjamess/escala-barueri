@@ -1,41 +1,48 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, Pressable, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
+import { Alert, View, Text, Pressable, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import { Ionicons, Feather, Octicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import { goBack } from 'expo-router/build/global-state/routing'
 import { useTheme } from 'styled-components/native';
 import { useAuth } from '../../hook/useAuth';
 import {main_styles} from '../../hook/useStyleMain'
-import {Camera} from 'expo-camera'
+import {CameraView, useCameraPermissions} from 'expo-camera'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Profile() {
   const route = useRouter();
   const { colors } = useTheme();
-  const { user, uploadProfileImage, getProfileImage } = useAuth();
+  const { user, uploadProfileImage, getProfileImage, changeProfileImage } = useAuth();
   const styles = main_styles(colors)
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [hasPermission, setHasPermission] = useState(null);
+  const [type, setType] = useState('back');
+  const [permission, requestPermission] = useCameraPermissions();
   const camRef = useRef(null);
   const [uri, setUri] = useState(null);
   const [camera, setCamera] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [imagemExistente, setImagemExistente] = useState(null);
 
-
   useEffect(() => {
-    (async ()=>{
-      const {status} = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })()
-  },[])
+    handleGetImage()
+  }, []);
 
+
+  async function handleOpenCamera() {
+  if (!permission?.granted) {
+    const { granted } = await requestPermission();
+    if (!granted) {
+      Alert.alert('Permissão negada', 'É necessário permitir o uso da câmera para tirar fotos de perfil.');
+      return;
+    }
+  }
+  setCamera(true);
+}
 
   async function take(){
     if(camRef){
       const data = await camRef.current.takePictureAsync();
       setUri(data.uri)
-      console.log(data);
-      handleImage()
+      handleImage(data.uri)
       setCamera(false)
     }
   }
@@ -54,7 +61,7 @@ export default function Profile() {
   },[user])
 
   async function handleGetImage() {
-    const matricula = user?.funcionario?.matricula_funcionario;
+    const matricula = user.funcionario.matricula_funcionario;
     const { result, error } = await getProfileImage(matricula);
     
     if (result) {
@@ -64,76 +71,95 @@ export default function Profile() {
     }
   }
 
-  async function handleImage() {
-    if (!uri) {
-      Alert.alert('Erro', 'Tire uma foto primeiro!');
-      return;
-    }
-
+  async function handleImage(uri) {
+     const matricula = user?.funcionario?.matricula_funcionario;
     setUploading(true);
 
-    try {
-      const matricula = user?.funcionario?.matricula_funcionario;
-      
-      const { result, error } = await uploadProfileImage(matricula, uri);
-
-      if (result) {
+    if (!uri || !imagemExistente) {
+    const uploadImage = await uploadProfileImage(matricula, uri);
+      if (uploadImage.result) {
         Alert.alert('Sucesso', 'Imagem de perfil atualizada!');
         setImagemExistente(uri);
         setUri(null);
         await handleGetImage(); // Recarregar a imagem do servidor
       } else {
-        Alert.alert('Erro', error || 'Erro ao enviar imagem');
+        Alert.alert('Erro ao enviar imagem', uploadImage.error = 'Network Error' ? 'Erro de conexão. Verifique sua internet e tente novamente.' : uploadImage.error || 'Desculpe. Ocorreu um erro no servidor.');
       }
-    } catch (error) {
-      console.error('Erro ao fazer upload:', error);
-      Alert.alert('Erro', 'Não foi possível enviar a imagem');
-    } finally {
+   
+      setUploading(false);
+  } else{
+      const changeImage = await changeProfileImage(matricula, uri);
+
+      if (changeImage.result) {
+        Alert.alert('Sucesso', 'Imagem de perfil atualizada!');
+        setImagemExistente(uri);
+        setUri(null);
+        await handleGetImage(); // Recarregar a imagem do servidor
+      } else {
+        Alert.alert('Erro ao enviar Imagem', changeImage.error = 'Network Error' ? 'Erro de conexão. Verifique sua internet e tente novamente.' : changeImage.error || 'Desculpe. Ocorreu um erro no servidor.');
+      }
+   
       setUploading(false);
     }
   }
+  
 
 
   return (
-    <ScrollView style={styles.Container}>
-      
-     { camera ? 
-      (hasPermission !== null || hasPermission !== false ?
-      <Camera
-        style={{flex:1}}
-        type={type}
-        ref={camRef}>
-          <View 
-          style={{
-            flex:1, 
-            backgroundColor:'transparent', 
-            flexDirection:'row'}}>
-              <TouchableOpacity style={{
-                position:'absolute',
-                bottom:20,
-                left:20
-              }}
-              onPress={()=>{ setType(
-                type===Camera.Constants.Type.back ?
-                Camera.Constants.Type.front :
-                Camera.Constants.Type.back)}}>
-                <Ionicons name="camera-reverse" size={40} 
-                style={{marginBottom: '20'}}/>
+    <>
+  { camera ? 
+      (permission && permission.granted ?
+        <SafeAreaView  style={{flex:1, zIndex:1000, position:'absolute', width:'100%', height:'100%'}}>
+      <CameraView
+        style={{flex:1, width:'100%', height:'130%', position: 'absolute'}}
+        facing={type}
+        ref={camRef}/>
+        
+          
+              <View style={{
+                position: 'absolute',
+                width: '100%',
+                height: 200,
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                flexDirection:'row', 
+                justifyContent:'space-around',
+                alignItems:'center',
+                marginTop: '150%',
+                
+                
+                }}>
+              <TouchableOpacity 
+              onPress={()=>{
+                setType(
+                type === 'back' ? 'front' : 'back'
+                )}}>
+                <Ionicons name="camera-reverse" size={30} color="gray" 
+                style={{marginBottom: 45}}/>
               </TouchableOpacity>
 
               <TouchableOpacity
-              style={{
-                position:'absolute',
-                bottom:20,
-                right:0,
-                left:0
-              }} 
-              onPress={take}>
-                <Ionicons name="checkmark-circle" size={70} />
+                onPress={take}>
+                <Ionicons name="checkmark-circle" size={70} color="white" 
+                style={{marginBottom: 30, borderWidth: 8, borderColor: 'white', borderRadius: 50}}/>
               </TouchableOpacity>
-            </View>
-        </Camera> 
-        : <View/> ): <View/>}
+
+               <TouchableOpacity
+                onPress={() => setCamera(false)}>
+                <Ionicons name="exit" size={50} color="gray" 
+                style={{marginBottom: 25}}/>
+              </TouchableOpacity>
+              </View>
+            
+       
+        </SafeAreaView>
+        : <View> 
+            <Text>É necessário permitir o uso da câmera</Text>
+            <Pressable onPress={requestPermission} title="grant permission"/>
+        </View> ) 
+        : <View/>}
+
+    <ScrollView style={styles.Container}>
+     
 
       <View style={styles.Navbar}>
         <Ionicons name='arrow-back' size={30} color={colors.on_nav_bar} onPress={() => route.back(goBack)} />
@@ -144,13 +170,30 @@ export default function Profile() {
       <View style={styles.Content}>
 
         <View style={styles.Circle}>
-          { uri ? 
-          <View> 
-            <Image source={{uri: uri}}/>
-          </View> :
+            {uploading ? (
+            <ActivityIndicator size="large" color={colors.primary} />
+          ) : (
+            <>
+          { uri || imagemExistente ? (
+            <Image source={{uri: uri || imagemExistente}} 
+            style={{width: 140, height: 140, borderRadius: 75}} 
+            /> ) : (
           <Feather name="user" size={130} color={colors.on_background} />
-          }
-          <Feather name="edit" size={40} color="black" onPress={()=>setCamera(true)}/>
+          )}
+          </>
+          )}
+            <TouchableOpacity 
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              backgroundColor: colors.primary,
+              borderRadius: 20,
+              marginRight: -25,
+            }}
+            onPress={handleOpenCamera}>
+            <Feather name="edit" size={30} color="black" />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.UserContainer}>
@@ -189,5 +232,6 @@ export default function Profile() {
 
       </View>
     </ScrollView>
+    </>
   )
 }

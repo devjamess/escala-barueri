@@ -15,6 +15,7 @@ const CustomCalendar = ({ feriados = [], reminders = [], matricula }) => {
       padding: 25,
       borderRadius: 15,
       elevation: 10,
+      boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
       
     },
     header: {

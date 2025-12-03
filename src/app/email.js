@@ -82,9 +82,6 @@ export default function EmailLogin() {
           
         </Pressable>
 
-        <Link href='/telefone' style={styles.trocarInput} >
-            <Text style={styles.textTrocarInput}> CONTINUAR COM TELEFONE </Text>
-        </Link>
       
       </View>
     </View>

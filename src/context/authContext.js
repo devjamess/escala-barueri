@@ -136,7 +136,7 @@ export const AuthProvider = ({ children }) => {
       const {data} = await api.post('/envioVerificacao_email', { email });
       return {result: data, error: null};
     }catch(error){
-      const erro = error?.response?.data?.mensagem
+      const erro = error?.response?.data?.mensagem || error.message
       console.error('Erro ao verificar e-mail: ', erro)
       return { result:null, error:erro };
     }
@@ -147,7 +147,7 @@ export const AuthProvider = ({ children }) => {
       const {data} = await api.post('/verificacaoCodigo', { matricula_funcionario, codigo });
       return {result: data, error: null};
     }catch(error){
-      const erro = error?.response?.data?.mensagem
+      const erro = error?.response?.data?.mensagem || error.message
       console.error('Erro ao verificar codigo: ', erro)
       return { result:null, error:erro };
     }
@@ -181,39 +181,67 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const uploadProfileImage = async (matricula, imageUri) => {
-    try {
-      // Criar FormData
-      const formData = new FormData();
-      
-      const filename = imageUri.split('/').pop();
-      const match = /\.(\w+)$/.exec(filename);
-      const type = match ? `image/${match[1]}` : `image/jpeg`;
-  
-      formData.append('file', {
-        uri: imageUri,
-        name: filename,
-        type: type,
-      });
-  
-      // Fazer o upload
-      const { data } = await api.put(
-        `/uploadImagemPerfil/${matricula}`, 
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-  
-      return { result: data, error: null };
-    } catch (error) {
-      const erro = error?.response?.data?.error || error.message;
-      console.error('Erro ao fazer upload da imagem:', erro);
-      return { result: null, error: erro };
-    }
-  };
+  const uploadProfileImage = async (matricula, uri) => {
+  try {
+    const filename = uri.split('/').pop();
+
+    const formData = new FormData();
+    formData.append('file', {
+      uri,                 // URI local da câmera
+      type: 'image/jpeg',   // ou 'image/png'
+      name: filename,
+    });
+
+    const { data } = await api.post(
+      `/uploadImagemPerfil/${matricula}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+
+    return { result: data, error: null };
+  } catch (error) {
+    const erro = error?.response?.data?.mensagem || error.message;
+    console.error('Erro ao fazer upload da imagem:', erro);
+    return { result: null, error: erro };
+  }
+};
+
+
+  const changeProfileImage = async (matricula, uri) => {
+  try {
+    const filename = uri.split('/').pop();
+    
+    // Criar FormData com URI diretamente
+    const formData = new FormData();
+    formData.append('file', {
+      uri,
+      name: filename,
+      type: 'image/jpeg', // ou 'image/png', dependendo do caso
+    });
+
+    // Fazer PUT para atualizar a imagem existente
+    const { data } = await api.put(
+      `/uploadImagemPerfil/${matricula}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+
+    return { result: data, error: null };
+  } catch (error) {
+    const erro = error?.response?.data?.mensagem || error.message;
+    console.error('Erro ao atualizar a imagem:', erro);
+    return { result: null, error: erro };
+  }
+};
+
   
 
 const getProfileImage = async (matricula) => {
@@ -297,6 +325,7 @@ const getProfileImage = async (matricula) => {
         reminders,
         uploadProfileImage,
         getProfileImage,
+        changeProfileImage,
         /*fscales,
         scales,
         fregions,

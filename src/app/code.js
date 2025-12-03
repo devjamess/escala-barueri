@@ -12,20 +12,14 @@ export default function Code() {
   const [loading, setLoading] = useState(false);
   const { verifyCode } = useAuth();
   const { matricula_funcionario } = useLocalSearchParams();
-  const [id, setID] = useState(null);
 
-  useEffect(() => {
-    if(!matricula_funcionario){
-      setID(matricula_funcionario)     
-    }
-  },[matricula_funcionario]);
 
   const handleVerifyCode = async () => {
     setLoading(true);
 
-    const codeData = await verifyCode(id, code)
+    const codeData = await verifyCode(matricula_funcionario, code)
     if (codeData.result) {
-      route.push(`/forgot-password?id=${id}&code=${code}`);
+      route.push(`/forgot-password?id=${matricula_funcionario}&code=${code}`);
     } else {
       Alert.alert('Erro na verificação', codeData.error);
     }

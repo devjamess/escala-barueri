@@ -66,10 +66,7 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
 
     // iOS Shadow
-    shadowColor: 'black',
-    shadowOffset: { width: 5, height: 7 },
-    shadowOpacity: 0.76,
-    shadowRadius: 3.84,
+    boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
 
     // Android Shadow
     elevation: 10,

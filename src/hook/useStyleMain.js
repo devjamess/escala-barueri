@@ -47,6 +47,7 @@ export const main_styles = (colors) => StyleSheet.create({
     backgroundColor: colors.button_main,
     aspectRatio: 1,
     elevation: 10,
+    boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
   },
   buttonsRight: {
     flex: 1,
@@ -61,6 +62,7 @@ export const main_styles = (colors) => StyleSheet.create({
     borderRadius: 15,
     backgroundColor: colors.button_main,
     elevation: 10,
+    boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
 
   },
   buttonConfig: {
@@ -71,6 +73,7 @@ export const main_styles = (colors) => StyleSheet.create({
     borderRadius: 15,
     backgroundColor: colors.button_main,
     elevation: 10,
+    boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
   },
   buttonText:{
     color: colors.text,
@@ -104,10 +107,7 @@ export const main_styles = (colors) => StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     // iOS Shadow
-    shadowColor: '#000000FF',
-    shadowOffset: { width: 5, height: 7 },
-    shadowOpacity: 0.76,
-    shadowRadius: 3.84,
+    boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
     // Android Shadow
     elevation: 10,
   },
@@ -121,18 +121,22 @@ export const main_styles = (colors) => StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: colors.background,
+      
     },
     CalendarDetailsTitle: {
       fontFamily: 'Montserrat-Medium',
       fontSize: 18,
       padding: 10,
-      color: colors.text
+      color: colors.text,
+      
+      
     },
     CalendarDetailsContent: {
       fontFamily: 'Montserrat-Medium',
       fontSize: 20,
       marginHorizontal: 90,
-      color: colors.text
+      color: colors.text,
+     
     },
     Content_margin: {
       margin: 15
@@ -146,6 +150,7 @@ export const main_styles = (colors) => StyleSheet.create({
     Item:{
       flexDirection: 'row',
       elevation: 10,
+      boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
     },
     ItemTitle:{
       fontFamily: 'Montserrat-Bold',
@@ -194,10 +199,7 @@ export const main_styles = (colors) => StyleSheet.create({
       padding: 10,
       width: '100%',
       // iOS Shadow
-      shadowColor: '#000000',
-      shadowOffset: { width: 5, height: 7 },
-      shadowOpacity: 0.76,
-      shadowRadius: 3.84,
+      boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
       // Android Shadow
       elevation: 5,
     },
@@ -267,10 +269,7 @@ export const main_styles = (colors) => StyleSheet.create({
     borderRadius: 10,
     padding: 10,
      // iOS Shadow
-     shadowColor: '#000000',
-     shadowOffset: { width: 5, height: 7 },
-     shadowOpacity: 0.76,
-     shadowRadius: 3.84,
+     boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
      // Android Shadow
      elevation: 10,
   },
@@ -291,10 +290,11 @@ export const main_styles = (colors) => StyleSheet.create({
     alignItems: 'center',
   },
   Circle: {
-    padding: 20,
+    width: 150,
+    height: 150,
     borderWidth: 3,
     borderColor: colors.on_background,
-    borderRadius: 150,
+    borderRadius: 75,
     backgroundColor: colors.content_light,
     justifyContent: 'center',
     alignItems: 'center'
@@ -309,10 +309,7 @@ export const main_styles = (colors) => StyleSheet.create({
       padding: 20,
       borderRadius: 15,
      // iOS Shadow
-      shadowColor: '#000000',
-      shadowOffset: { width: 5, height: 7 },
-      shadowOpacity: 0.76,
-      shadowRadius: 3.84,
+      boxShadow: '5px 7px 3.84px rgba(0, 0, 0, 0.3)',
       // Android Shadow
       
       elevation: 10,

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useAuth } from '../hook/useAuth';
 import { styles } from '../hook/useStyleApp';
 import * as Notifications from 'expo-notifications'
+import {SafeAreaView} from 'react-native-safe-area-context'
 
   // Notifications.setNotificationHandler({
   //   handleNotification: async () => ({
@@ -46,7 +47,7 @@ export default function Login() {
         keyboardShouldPersistTaps='handled'
 
       >
-        <View style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
 
           <ImageBackground
             source={require('../assets/images/background-login.png')}
@@ -96,7 +97,7 @@ export default function Login() {
             </Link>
           </View>
 
-        </View>
+        </SafeAreaView>
       </ScrollView>
     </KeyboardAvoidingView>
 

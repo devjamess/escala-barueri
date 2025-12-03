@@ -21,7 +21,13 @@
           "color": "#ffffff"
         }
       ],
-      "expo-build-properties"
+      "expo-build-properties",
+      [ 
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
@@ -41,7 +47,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.james2.MinhaEscala",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "Esta aplicação necessita de acesso à câmera para que você possa tirar fotos de perfil."
       }
     },
     "android": {

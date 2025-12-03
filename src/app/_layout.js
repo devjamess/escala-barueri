@@ -36,11 +36,6 @@ export default function Layout() {
           />
 
           <Stack.Screen
-            name='telefone'
-            options={{ headerShown: false }}
-          />
-
-          <Stack.Screen
             name='main'
             options={{ headerShown: false }}
           />
