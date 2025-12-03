@@ -1,5 +1,5 @@
 import { Alert, ActivityIndicator, View, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, Image, StyleSheet, ImageBackground, TextInput, Pressable } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link, useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../hook/useAuth';
 import { useState } from 'react';
@@ -7,30 +7,25 @@ import { styles } from '../hook/useStyleApp';
 
 export default function ForgotPassword() {
   const route = useRouter();
-  const [code, setCode] = useState('');
-  const [loading, setLoading] = useState(false);
-   const [form, setForm] = useState({
-        nova_senha: '',
-        confirmar_nova_senha: '',
-      })
-      const [load, setLoad] = useState(false)
-  
-      const handleChange = (name) =>(value)=> {
-        setForm(prev => ({...prev, [name]: value}))
-      }
+  const { updatePasswordByEmail } = useAuth();
+  const { matricula, codigo} = useLocalSearchParams()
+  const [load, setLoad] = useState(false);
+  const [nova_senha, setSenha] = useState('');
+  const [confirmar_senha, setConfirmar] = useState('');
   
       const handleForgotPassword = async () =>{
         setLoad(true)
        
-        if(Object.values(form).some(value => value === '')){
-          Alert.alert('Erro ao redefinir senha','Por favor, preencha todos os campos.')
-        }else if(form.nova_senha !== form.confirmar_nova_senha){
-          Alert.alert('Erro ao redefinir senha','As senhas não coincidem.')
-        }else{
+        const newPassword = await updatePasswordByEmail(codigo, matricula, nova_senha, confirmar_senha)
+        if(newPassword.result){
+          Alert.alert('Sucesso! ', 'Sua senha foi alterada!')
           route.replace('/')
+        }else{
+          Alert.alert('Erro ao redefinir senha: ',newPassword.error)
         }
         setLoad(false)
       }
+
   return (
 
 
@@ -67,8 +62,8 @@ export default function ForgotPassword() {
               placeholder='Nova Senha'
               secureTextEntry
               placeholderTextColor={'#111827'}
-              value={form.nova_senha}
-              onChangeText={handleChange('nova_senha')}
+              value={nova_senha}
+              onChangeText={setSenha}
             >
             </TextInput>
 
@@ -76,8 +71,8 @@ export default function ForgotPassword() {
               placeholder='Confirmar Senha'
               secureTextEntry
               placeholderTextColor={'#111827'}
-              value={form.confirmar_nova_senha}
-              onChangeText={handleChange('confirmar_nova_senha')}
+              value={confirmar_senha}
+              onChangeText={setConfirmar}
             >
             </TextInput>
             

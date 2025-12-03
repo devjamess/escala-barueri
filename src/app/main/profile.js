@@ -8,6 +8,7 @@ import { useAuth } from '../../hook/useAuth';
 import {main_styles} from '../../hook/useStyleMain'
 import {CameraView, useCameraPermissions} from 'expo-camera'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Profile() {
   const route = useRouter();
@@ -23,8 +24,21 @@ export default function Profile() {
   const [imagemExistente, setImagemExistente] = useState(null);
 
   useEffect(() => {
+    if(user){
     handleGetImage()
-  }, []);
+  
+  if(user?.funcionario && user?.setor){
+      setInfos({
+        name: user?.funcionario?.nome,
+        registration: user?.funcionario?.matricula_funcionario,
+        telefone: user?.funcionario?.telefone,
+        sector: user?.setor?.nome_setor,
+        email: user?.funcionario?.email,
+        position: user?.funcionario?.cargo,
+      })
+    }
+  }
+  }, [user]);
 
 
   async function handleOpenCamera() {
@@ -47,26 +61,21 @@ export default function Profile() {
     }
   }
   const [infos, setInfos] = useState({})
-  useEffect(()=>{
-    if(user?.funcionario && user?.setor){
-      setInfos({
-        name: user?.funcionario?.nome,
-        registration: user?.funcionario?.matricula_funcionario,
-        telefone: user?.funcionario?.telefone,
-        sector: user?.setor?.nome_setor,
-        email: user?.funcionario?.email,
-        position: user?.funcionario?.cargo,
-      })
-    }
-  },[user])
 
   async function handleGetImage() {
     const matricula = user.funcionario.matricula_funcionario;
-    const { result, error } = await getProfileImage(matricula);
     
-    if (result) {
-      setImagemExistente(result);
-    } else if (error) {
+    const getImage = await AsyncStorage.getItem(`profileImage-${matricula}`);
+  if (getImage) {
+    setImagemExistente(getImage);
+    return;
+  }
+    
+    const profileImage = await getProfileImage(matricula);
+    if (profileImage.result) {
+      setImagemExistente(profileImage.result);
+      await AsyncStorage.setItem(`profileImage-${matricula}`, profileImage.result)
+    } else {
       console.log('Nenhuma imagem de perfil encontrada');
     }
   }
@@ -75,32 +84,23 @@ export default function Profile() {
      const matricula = user?.funcionario?.matricula_funcionario;
     setUploading(true);
 
-    if (!uri || !imagemExistente) {
-    const uploadImage = await uploadProfileImage(matricula, uri);
-      if (uploadImage.result) {
-        Alert.alert('Sucesso', 'Imagem de perfil atualizada!');
-        setImagemExistente(uri);
-        setUri(null);
-        await handleGetImage(); // Recarregar a imagem do servidor
-      } else {
-        Alert.alert('Erro ao enviar imagem', uploadImage.error = 'Network Error' ? 'Erro de conexão. Verifique sua internet e tente novamente.' : uploadImage.error || 'Desculpe. Ocorreu um erro no servidor.');
-      }
-   
-      setUploading(false);
-  } else{
-      const changeImage = await changeProfileImage(matricula, uri);
-
-      if (changeImage.result) {
-        Alert.alert('Sucesso', 'Imagem de perfil atualizada!');
-        setImagemExistente(uri);
-        setUri(null);
-        await handleGetImage(); // Recarregar a imagem do servidor
-      } else {
-        Alert.alert('Erro ao enviar Imagem', changeImage.error = 'Network Error' ? 'Erro de conexão. Verifique sua internet e tente novamente.' : changeImage.error || 'Desculpe. Ocorreu um erro no servidor.');
-      }
-   
-      setUploading(false);
+    let loadProfileImage;
+    if (!imagemExistente) {
+      loadProfileImage = await uploadProfileImage(matricula, uri);
+    }else {
+      loadProfileImage = await changeProfileImage(matricula, uri);
     }
+
+      if (loadProfileImage.result) {
+        Alert.alert('Sucesso', 'Imagem de perfil atualizada!');
+        setImagemExistente(uri);
+        setUri(null);
+        await AsyncStorage.setItem(`profileImage-${matricula}`, uri)
+      } else {
+        Alert.alert('Erro ao enviar imagem', loadProfileImage.error = 'Network Error' ? 'Erro de conexão. Verifique sua internet e tente novamente.' : loadProfileImage.error || 'Desculpe. Ocorreu um erro no servidor.');
+      }
+   
+      setUploading(false);
   }
   
 

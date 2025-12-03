@@ -16,6 +16,7 @@ export const useAuth = () => {
     uploadProfileImage,
     getProfileImage,
     changeProfileImage,
+    updatePasswordByEmail,
    /* scales,
     regions,
     teams 
@@ -35,6 +36,7 @@ export const useAuth = () => {
     uploadProfileImage,
     getProfileImage,
     changeProfileImage,
+    updatePasswordByEmail,
     /*scales,
     regions,
     teams,

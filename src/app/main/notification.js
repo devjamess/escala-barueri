@@ -12,9 +12,12 @@ export default function Notification() {
   const { colors } = useTheme();
 
   const formater = new Intl.DateTimeFormat('pt-BR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-    hour12: false // Garante formato 24h
+    hour12: false 
   });
 
   const formatTime = (dateString) => {
@@ -46,7 +49,7 @@ export default function Notification() {
             </Text>
 
             <View style={{ justifyContent: 'center', alignItems: 'flex-end' }}>
-              <Text style={{ fontFamily: 'Montserrat-Regular', color: colors.text }}>
+              <Text style={{ fontFamily: 'Montserrat-Medium', color: colors.text }}>
                 {formatTime(n.enviada_em)}
                 </Text>
             </View>

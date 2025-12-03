@@ -144,16 +144,35 @@ export const AuthProvider = ({ children }) => {
 
   const verifyCode = async(matricula_funcionario, codigo)=>{
     try{
-      const {data} = await api.post('/verificacaoCodigo', { matricula_funcionario, codigo });
+      const matricula = parseInt(matricula_funcionario, 10);
+      const {data} = await api.post('/verificacaoCodigo', {
+         matricula_funcionario:matricula, 
+         codigo 
+        });
       return {result: data, error: null};
     }catch(error){
-      const erro = error?.response?.data?.mensagem || error.message
+      const erro =  error?.response?.data?.mensagem || error.message
       console.error('Erro ao verificar codigo: ', erro)
+      console.error("erro interno: ", error?.response?.data?.erro);
       return { result:null, error:erro };
     }
   }
 
-  const updatePasswordByEmail = async(email, payload) =>{}
+  const updatePasswordByEmail = async(codigo, matricula_funcionario, nova_senha, confirmar_senha) =>{
+    try{
+      const {data} = await api.put('/redefinirSenha',{
+        codigo,
+        matricula_funcionario,
+        nova_senha,
+        confirmar_senha
+      })
+      return {result: data, error: null}
+    }catch(error){
+      const erro = error?.response?.data?.mensagem || error.message
+      console.error('Erro ao alterar senha: ', erro)
+      return { result:null, error:erro }
+    }
+  }
 
   const holidaysList = async() =>{
     try{
@@ -300,6 +319,7 @@ const getProfileImage = async (matricula) => {
   }, []);
 
   useEffect(()=>{
+    if(user)
     holidaysList()
     remindersList()
     getProfileImage()
@@ -326,6 +346,7 @@ const getProfileImage = async (matricula) => {
         uploadProfileImage,
         getProfileImage,
         changeProfileImage,
+        updatePasswordByEmail,
         /*fscales,
         scales,
         fregions,

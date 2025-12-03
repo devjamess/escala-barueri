@@ -13,13 +13,27 @@ export default function Code() {
   const { verifyCode } = useAuth();
   const { matricula_funcionario } = useLocalSearchParams();
 
+  useEffect(() => {
+    if (!matricula_funcionario || matricula_funcionario === 'null' || matricula_funcionario === 'undefined') {
+      Alert.alert(
+        'Erro',
+        'Sessão inválida. Volte e tente novamente.',
+        [{ text: 'OK', onPress: () => route.replace('/email') }]
+      );
+    }
+  }, [matricula_funcionario]);
+
 
   const handleVerifyCode = async () => {
+    const codigo = code.trim();
+    const matricula = parseInt(matricula_funcionario, 10);
     setLoading(true);
-
-    const codeData = await verifyCode(matricula_funcionario, code)
+  
+    const codeData = await verifyCode(matricula, codigo);
     if (codeData.result) {
-      route.push(`/forgot-password?id=${matricula_funcionario}&code=${code}`);
+      console.log("infos", codeData.result);
+      
+      route.push(`/forgot-password?matricula=${matricula}&codigo=${codigo}`);
     } else {
       Alert.alert('Erro na verificação', codeData.error);
     }

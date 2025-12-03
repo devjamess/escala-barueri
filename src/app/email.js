@@ -11,7 +11,6 @@ export default function EmailLogin() {
   const route = useRouter();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  const [matricula_funcionario, setId] = useState(null);
   const { verifyEmail } = useAuth();
 
    const handleVerifyEmail = async () => {
@@ -19,10 +18,26 @@ export default function EmailLogin() {
     const emailData = await verifyEmail(email);
     
       if (emailData.result) {
-    console.log("infos",emailData.result);
-    setId(emailData.result.matricula_funcionario);
-    route.push(`/code?matricula_funcionario=${matricula_funcionario}`);
-    } else{
+      console.log("infos: ",emailData.result);
+
+      const matricula_funcionario = emailData.result.matricula_funcionario;
+      console.log("matricula enviada: ", matricula_funcionario);
+
+        if (!matricula_funcionario || isNaN(parseInt(matricula_funcionario, 10))) {
+          Alert.alert('Erro', 'Dados inválidos retornados pelo servidor');
+          setLoading(false);
+          return;
+        }
+
+        Alert.alert('Código Enviado', 'Um código de verificação foi enviado para seu email.',
+          [{
+              text: 'OK',
+              onPress: () => {
+                route.push(`/code?matricula_funcionario=${matricula_funcionario}`);
+                }
+            }]
+        );
+      } else {
       Alert.alert('Erro na verificação', emailData.error);
     }
     setLoading(false);
