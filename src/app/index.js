@@ -3,16 +3,8 @@ import { Link, useRouter, } from 'expo-router';
 import { useState } from 'react';
 import { useAuth } from '../hook/useAuth';
 import { styles } from '../hook/useStyleApp';
-import * as Notifications from 'expo-notifications'
-import {SafeAreaView} from 'react-native-safe-area-context'
 
-  // Notifications.setNotificationHandler({
-  //   handleNotification: async () => ({
-  //     shouldShowAlert: true,
-  //     shouldPlaySound: false,
-  //     shouldSetBadge: true,
-  //   })
-  // });
+import {SafeAreaView} from 'react-native-safe-area-context'
 
 export default function Login() {
 
