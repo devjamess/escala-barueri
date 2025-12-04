@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       }
        
     } catch (error) {
-      const erro = error?.message
+      const erro = error?.response?.data?.mensagem || error.message
       console.error('Erro ao fazer login:', erro);
       return {result: null, error: erro}
     }
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
 
       return {result:data.confirmada, error:null};
     } catch (error) {
-      const erro = error.response?.data?.message
+      const erro = error.response?.data?.mensagem || error.message;
       console.error('Erro ao confirmar escala:', erro);
       return { result:null, error: erro };
     }
@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }) => {
       const sucess = 'Alterações salvas com sucesso!'
       return { result: data, error: null, sucess: sucess }
     } catch (error) {
-      const erro = error.response?.data?.mensagem 
+      const erro = error.response?.data?.mensagem || error.message;
       console.error('Erro ao alterar informações: ', erro)
       return { result: null, error: erro, sucess: null }
     }
